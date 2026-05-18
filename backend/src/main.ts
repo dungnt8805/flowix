@@ -13,6 +13,20 @@ async function bootstrap(): Promise<void> {
       transform: true
     })
   );
+  const corsOrigins = (process.env.CORS_ORIGINS || 'http://localhost:3000')
+    .split(',')
+    .map((origin) => origin.trim());
+  console.log('CORS Origins loaded:', corsOrigins);
+  app.enableCors({
+    origin: corsOrigins,
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+    allowedHeaders: [
+      'Content-Type',
+      'Authorization',
+      'X-Requested-With'
+    ],
+  });
   await app.listen(process.env.PORT ?? 3001);
 }
 

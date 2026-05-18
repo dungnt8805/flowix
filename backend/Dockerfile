@@ -5,7 +5,6 @@ WORKDIR /app
 # Copy root configs
 COPY package.json package-lock.json ./
 COPY backend/package.json ./backend/
-COPY frontend/package.json ./frontend/
 
 # Install dependencies
 RUN npm ci
