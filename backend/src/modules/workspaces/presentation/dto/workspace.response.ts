@@ -1,15 +1,14 @@
 import { WorkspaceWithRole } from '../../application/ports/workspace.repository';
 import { Workspace } from '../../domain/workspace';
-import { WorkspaceMemberRole } from '../../domain/workspace-member-role';
 
 export interface WorkspaceResponse {
   id: string;
   name: string;
   slug: string;
-  currentUserRole: WorkspaceMemberRole;
+  currentUserRole: string;
 }
 
-export function toWorkspaceResponse(workspace: Workspace, currentUserRole: WorkspaceMemberRole): WorkspaceResponse {
+export function toWorkspaceResponse(workspace: Workspace, currentUserRole: string): WorkspaceResponse {
   return {
     id: workspace.id,
     name: workspace.name,

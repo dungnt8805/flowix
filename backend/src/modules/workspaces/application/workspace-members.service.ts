@@ -4,7 +4,8 @@ import { In, Repository } from 'typeorm';
 import { AuthenticatedUser } from '../../../common/auth/authenticated-user';
 import { UserEntity } from '../../users/infrastructure/persistence/user.entity';
 import { WorkspaceMember } from '../domain/workspace-member';
-import { WorkspaceMemberRole } from '../domain/workspace-member-role';
+import { Permission } from '../domain/permission';
+import { ROLE_REPOSITORY, RoleRepository } from './ports/role.repository';
 import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
@@ -16,7 +17,8 @@ export interface WorkspaceMemberSummary {
   userId: string;
   email: string;
   displayName: string | null;
-  role: WorkspaceMemberRole;
+  role: string;
+  roleId: string;
   createdAt: string;
   updatedAt: string;
 }
@@ -27,7 +29,9 @@ export class WorkspaceMembersService {
     @Inject(WORKSPACE_MEMBER_REPOSITORY)
     private readonly members: WorkspaceMemberRepository,
     @InjectRepository(UserEntity)
-    private readonly users: Repository<UserEntity>
+    private readonly users: Repository<UserEntity>,
+    @Inject(ROLE_REPOSITORY)
+    private readonly roles: RoleRepository
   ) {}
 
   async listMembers(user: AuthenticatedUser, workspaceId: string): Promise<WorkspaceMemberSummary[]> {
@@ -39,10 +43,14 @@ export class WorkspaceMembersService {
     actor: AuthenticatedUser;
     workspaceId: string;
     email: string;
-    role: WorkspaceMemberRole;
+    role: string;
   }): Promise<WorkspaceMemberSummary> {
     const actorMembership = await this.requireAdminActor(input.actor, input.workspaceId);
-    this.assertActorCanAssignRole(actorMembership.role, input.role);
+    this.assertActorCanAssignRole(actorMembership.role.name, input.role);
+    
+    const roleEntity = await this.roles.findByNameAndWorkspaceId(input.role, null);
+    if (!roleEntity) throw new NotFoundException('Role not found.');
+
     const email = normalizeEmail(input.email);
     let targetUser = await this.users.findOneBy({ email });
 
@@ -65,7 +73,7 @@ export class WorkspaceMembersService {
     const member = await this.members.addMember({
       workspaceId: input.workspaceId,
       userId: targetUser.id,
-      role: input.role
+      roleId: roleEntity.id
     });
     return (await this.toSummaries([member]))[0];
   }
@@ -74,15 +82,19 @@ export class WorkspaceMembersService {
     actor: AuthenticatedUser;
     workspaceId: string;
     userId: string;
-    role: WorkspaceMemberRole;
+    role: string;
   }): Promise<WorkspaceMemberSummary> {
     const actorMembership = await this.requireAdminActor(input.actor, input.workspaceId);
     const targetMembership = await this.requireTargetMember(input.workspaceId, input.userId);
-    this.assertActorCanManageTarget(actorMembership, targetMembership);
-    this.assertActorCanAssignRole(actorMembership.role, input.role);
-    await this.assertOwnerWouldRemain(input.workspaceId, targetMembership, input.role);
+    
+    const nextRoleEntity = await this.roles.findByNameAndWorkspaceId(input.role, null);
+    if (!nextRoleEntity) throw new NotFoundException('Role not found.');
 
-    const updated = await this.updateMemberRole(input.workspaceId, input.userId, input.role);
+    this.assertActorCanManageTarget(actorMembership, targetMembership);
+    this.assertActorCanAssignRole(actorMembership.role.name, input.role);
+    await this.assertOwnerWouldRemain(input.workspaceId, targetMembership, nextRoleEntity.id);
+
+    const updated = await this.updateMemberRole(input.workspaceId, input.userId, nextRoleEntity.id);
     return (await this.toSummaries([updated]))[0];
   }
 
@@ -108,8 +120,8 @@ export class WorkspaceMembersService {
 
   private async requireAdminActor(user: AuthenticatedUser, workspaceId: string): Promise<WorkspaceMember> {
     const membership = await this.requireWorkspaceMember(user, workspaceId);
-    if (membership.role !== WorkspaceMemberRole.OWNER && membership.role !== WorkspaceMemberRole.ADMIN) {
-      throw new ForbiddenException('Workspace member management requires owner or admin access.');
+    if (!membership.role.hasPermission(Permission.WORKSPACE_MEMBER_ADD) && !membership.role.hasPermission(Permission.WORKSPACE_MANAGE)) {
+      throw new ForbiddenException('Workspace member management requires sufficient access.');
     }
     return membership;
   }
@@ -123,15 +135,15 @@ export class WorkspaceMembersService {
   }
 
   private assertActorCanManageTarget(actor: WorkspaceMember, target: WorkspaceMember): void {
-    if (target.role === WorkspaceMemberRole.OWNER && actor.role !== WorkspaceMemberRole.OWNER) {
+    if (target.role.name === 'owner' && actor.role.name !== 'owner') {
       throw new ForbiddenException('Only owners can manage owner memberships.');
     }
   }
 
-  private assertActorCanAssignRole(actorRole: WorkspaceMemberRole, nextRole: WorkspaceMemberRole): void {
+  private assertActorCanAssignRole(actorRoleName: string, nextRoleName: string): void {
     if (
-      (nextRole === WorkspaceMemberRole.OWNER || nextRole === WorkspaceMemberRole.ADMIN) &&
-      actorRole !== WorkspaceMemberRole.OWNER
+      (nextRoleName === 'owner' || nextRoleName === 'admin') &&
+      actorRoleName !== 'owner'
     ) {
       throw new ForbiddenException('Only owners can assign owner or admin roles.');
     }
@@ -140,13 +152,20 @@ export class WorkspaceMembersService {
   private async assertOwnerWouldRemain(
     workspaceId: string,
     target: WorkspaceMember,
-    nextRole: WorkspaceMemberRole | null
+    nextRoleId: string | null
   ): Promise<void> {
-    if (target.role !== WorkspaceMemberRole.OWNER || nextRole === WorkspaceMemberRole.OWNER) {
+    if (target.role.name !== 'owner') {
       return;
     }
 
-    const ownerCount = await this.countByWorkspaceIdAndRole(workspaceId, WorkspaceMemberRole.OWNER);
+    const ownerRole = await this.roles.findByNameAndWorkspaceId('owner', null);
+    if (!ownerRole) return;
+
+    if (nextRoleId === ownerRole.id) {
+      return;
+    }
+
+    const ownerCount = await this.countByWorkspaceIdAndRole(workspaceId, ownerRole.id);
     if (ownerCount <= 1) {
       throw new ForbiddenException('Workspace must keep at least one owner.');
     }
@@ -168,7 +187,8 @@ export class WorkspaceMembersService {
         userId: member.userId,
         email: user?.email ?? '',
         displayName: user?.displayName ?? null,
-        role: member.role,
+        role: member.role?.name ?? 'unknown',
+        roleId: member.roleId,
         createdAt: member.createdAt.toISOString(),
         updatedAt: member.updatedAt.toISOString()
       };
@@ -185,12 +205,12 @@ export class WorkspaceMembersService {
   private updateMemberRole(
     workspaceId: string,
     userId: string,
-    role: WorkspaceMemberRole
+    roleId: string
   ): Promise<WorkspaceMember> {
     if (this.members.updateRole === undefined) {
       throw new Error('Workspace member repository does not support role updates.');
     }
-    return this.members.updateRole(workspaceId, userId, role);
+    return this.members.updateRole(workspaceId, userId, roleId);
   }
 
   private removeByWorkspaceIdAndUserId(workspaceId: string, userId: string): Promise<void> {
@@ -200,11 +220,11 @@ export class WorkspaceMembersService {
     return this.members.removeByWorkspaceIdAndUserId(workspaceId, userId);
   }
 
-  private countByWorkspaceIdAndRole(workspaceId: string, role: WorkspaceMemberRole): Promise<number> {
+  private countByWorkspaceIdAndRole(workspaceId: string, roleId: string): Promise<number> {
     if (this.members.countByWorkspaceIdAndRole === undefined) {
       throw new Error('Workspace member repository does not support role counts.');
     }
-    return this.members.countByWorkspaceIdAndRole(workspaceId, role);
+    return this.members.countByWorkspaceIdAndRole(workspaceId, roleId);
   }
 }
 

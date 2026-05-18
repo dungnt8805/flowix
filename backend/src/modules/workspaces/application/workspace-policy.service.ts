@@ -2,7 +2,7 @@ import { ForbiddenException, Inject, Injectable, NotFoundException } from '@nest
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { AuthenticatedUser } from '../../../common/auth/authenticated-user';
-import { canCreateProject } from '../domain/workspace-permissions';
+import { Permission } from '../domain/permission';
 import { WorkspacePolicyEntity } from '../infrastructure/persistence/workspace-policy.entity';
 import {
   WORKSPACE_MEMBER_REPOSITORY,
@@ -64,7 +64,7 @@ export class WorkspacePolicyService {
     if (membership === null) {
       throw new NotFoundException('Workspace was not found.');
     }
-    if (!canCreateProject(membership.role)) {
+    if (!membership.role.hasPermission(Permission.WORKSPACE_MANAGE)) {
       throw new ForbiddenException('Workspace policy requires owner or admin access.');
     }
   }

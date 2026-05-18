@@ -6,7 +6,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canCommentOnDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import { DiagramComment } from '../../domain/diagram-comment';
 import {
   DIAGRAM_COMMENT_REPOSITORY,
@@ -56,7 +56,7 @@ export class UpdateDiagramCommentStatusUseCase {
       command.user.id
     );
 
-    if (membership === null || !canCommentOnDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_COMMENT)) {
       throw new ForbiddenException('You do not have permission to update this comment.');
     }
 

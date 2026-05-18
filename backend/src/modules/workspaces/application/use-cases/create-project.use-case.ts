@@ -1,7 +1,7 @@
 import { ForbiddenException, Inject, Injectable } from '@nestjs/common';
 import { AuthenticatedUser } from '../../../../common/auth/authenticated-user';
 import { CurrentUserSyncService } from '../../../auth/application/current-user-sync.service';
-import { canCreateProject } from '../../domain/workspace-permissions';
+import { Permission } from '../../domain/permission';
 import { Project } from '../../domain/project';
 import { PROJECT_REPOSITORY, ProjectRepository } from '../ports/project.repository';
 import { WORKSPACE_MEMBER_REPOSITORY, WorkspaceMemberRepository } from '../ports/workspace-member.repository';
@@ -31,7 +31,7 @@ export class CreateProjectUseCase {
       input.user.id
     );
 
-    if (membership === null || !canCreateProject(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.PROJECT_CREATE)) {
       throw new ForbiddenException('You do not have permission to create a project in this workspace.');
     }
 

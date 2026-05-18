@@ -9,7 +9,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canViewDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import { DiagramVersion } from '../../domain/diagram-version';
 import {
   DIAGRAM_VERSION_REPOSITORY,
@@ -54,7 +54,7 @@ export class ListDiagramVersionsUseCase {
       query.user.id
     );
 
-    if (membership === null || !canViewDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_VIEW)) {
       throw new ForbiddenException('You do not have permission to view this diagram.');
     }
 

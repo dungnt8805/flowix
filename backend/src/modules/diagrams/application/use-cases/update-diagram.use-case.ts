@@ -9,7 +9,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canUpdateDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import { Diagram } from '../../domain/diagram';
 import { DiagramThemeConfig } from '../../domain/diagram-theme';
 import { DiagramVersion } from '../../domain/diagram-version';
@@ -66,7 +66,7 @@ export class UpdateDiagramUseCase {
       command.user.id
     );
 
-    if (membership === null || !canUpdateDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_UPDATE)) {
       throw new ForbiddenException('You do not have permission to update this diagram.');
     }
 

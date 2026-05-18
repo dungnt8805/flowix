@@ -20,28 +20,40 @@ export class TypeOrmWorkspaceMemberRepository implements WorkspaceMemberReposito
     const member = this.repository.create({
       workspaceId: input.workspaceId,
       userId: input.userId,
-      role: input.role
+      roleId: input.roleId
     });
     const saved = await this.repository.save(member);
-    return WorkspaceMemberMapper.toDomain(saved);
+    // Reload to get the relation
+    const loaded = await this.repository.findOneOrFail({
+      where: { id: saved.id },
+      relations: ['role']
+    });
+    return WorkspaceMemberMapper.toDomain(loaded);
   }
 
   async listByWorkspaceId(workspaceId: string): Promise<WorkspaceMember[]> {
     const members = await this.repository.find({
       where: { workspaceId },
+      relations: ['role'],
       order: { createdAt: 'ASC' }
     });
     return members.map((member) => WorkspaceMemberMapper.toDomain(member));
   }
 
   async findByWorkspaceIdAndUserId(workspaceId: string, userId: string): Promise<WorkspaceMember | null> {
-    const member = await this.repository.findOneBy({ workspaceId, userId });
+    const member = await this.repository.findOne({
+      where: { workspaceId, userId },
+      relations: ['role']
+    });
     return member === null ? null : WorkspaceMemberMapper.toDomain(member);
   }
 
-  async updateRole(workspaceId: string, userId: string, role: WorkspaceMember['role']): Promise<WorkspaceMember> {
-    await this.repository.update({ workspaceId, userId }, { role });
-    const member = await this.repository.findOneByOrFail({ workspaceId, userId });
+  async updateRole(workspaceId: string, userId: string, roleId: string): Promise<WorkspaceMember> {
+    await this.repository.update({ workspaceId, userId }, { roleId });
+    const member = await this.repository.findOneOrFail({
+      where: { workspaceId, userId },
+      relations: ['role']
+    });
     return WorkspaceMemberMapper.toDomain(member);
   }
 
@@ -49,7 +61,7 @@ export class TypeOrmWorkspaceMemberRepository implements WorkspaceMemberReposito
     await this.repository.delete({ workspaceId, userId });
   }
 
-  countByWorkspaceIdAndRole(workspaceId: string, role: WorkspaceMember['role']): Promise<number> {
-    return this.repository.countBy({ workspaceId, role });
+  countByWorkspaceIdAndRole(workspaceId: string, roleId: string): Promise<number> {
+    return this.repository.countBy({ workspaceId, roleId });
   }
 }

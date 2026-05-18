@@ -9,7 +9,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canViewDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import { Diagram } from '../../domain/diagram';
 import { DIAGRAM_REPOSITORY, DiagramRepository } from '../ports/diagram.repository';
 
@@ -66,7 +66,7 @@ export class ExportDiagramSourceUseCase {
       user.id
     );
 
-    if (membership === null || !canViewDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_VIEW)) {
       throw new ForbiddenException('You do not have permission to export this diagram.');
     }
 

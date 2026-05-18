@@ -6,7 +6,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canViewDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import {
   DIAGRAM_COMMENT_REPOSITORY,
   DiagramCommentRepository
@@ -43,7 +43,7 @@ export class ListDiagramCommentsUseCase {
       user.id
     );
 
-    if (membership === null || !canViewDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_VIEW)) {
       throw new ForbiddenException('You do not have permission to view comments for this diagram.');
     }
 

@@ -1,15 +1,14 @@
-import { IsEmail, IsEnum } from 'class-validator';
-import { WorkspaceMemberRole } from '../../domain/workspace-member-role';
+import { IsEmail, IsString } from 'class-validator';
 
 export class AddWorkspaceMemberRequest {
   @IsEmail()
   email!: string;
 
-  @IsEnum(WorkspaceMemberRole)
-  role!: WorkspaceMemberRole;
+  @IsString()
+  role!: string;
 }
 
 export class UpdateWorkspaceMemberRoleRequest {
-  @IsEnum(WorkspaceMemberRole)
-  role!: WorkspaceMemberRole;
+  @IsString()
+  role!: string;
 }

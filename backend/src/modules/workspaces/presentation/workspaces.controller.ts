@@ -13,7 +13,6 @@ import { CreateWorkspaceRequest } from './dto/create-workspace.request';
 import { AddWorkspaceMemberRequest, UpdateWorkspaceMemberRoleRequest } from './dto/workspace-member.request';
 import { ProjectResponse, toProjectResponse } from './dto/project.response';
 import { WorkspaceResponse, toWorkspaceResponse, toWorkspaceWithRoleResponse } from './dto/workspace.response';
-import { WorkspaceMemberRole } from '../domain/workspace-member-role';
 import { WorkspacePolicyService, WorkspacePolicySummary } from '../application/workspace-policy.service';
 
 interface UpdateWorkspacePolicyRequest {
@@ -47,7 +46,7 @@ export class WorkspacesController {
       name: body.name
     });
 
-    return toWorkspaceResponse(workspace, WorkspaceMemberRole.OWNER);
+    return toWorkspaceResponse(workspace, 'owner');
   }
 
   @Get()

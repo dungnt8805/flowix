@@ -11,20 +11,23 @@ import { WorkspaceMembersService } from './application/workspace-members.service
 import { PROJECT_REPOSITORY } from './application/ports/project.repository';
 import { WORKSPACE_MEMBER_REPOSITORY } from './application/ports/workspace-member.repository';
 import { WORKSPACE_REPOSITORY } from './application/ports/workspace.repository';
+import { ROLE_REPOSITORY } from './application/ports/role.repository';
 import { ProjectEntity } from './infrastructure/persistence/project.entity';
 import { WorkspaceEntity } from './infrastructure/persistence/workspace.entity';
 import { WorkspaceMemberEntity } from './infrastructure/persistence/workspace-member.entity';
 import { WorkspacePolicyEntity } from './infrastructure/persistence/workspace-policy.entity';
+import { RoleEntity } from './infrastructure/persistence/role.entity';
 import { TypeOrmProjectRepository } from './infrastructure/persistence/typeorm-project.repository';
 import { TypeOrmWorkspaceMemberRepository } from './infrastructure/persistence/typeorm-workspace-member.repository';
 import { TypeOrmWorkspaceRepository } from './infrastructure/persistence/typeorm-workspace.repository';
+import { TypeOrmRoleRepository } from './infrastructure/persistence/typeorm-role.repository';
 import { WorkspacesController } from './presentation/workspaces.controller';
 
 @Module({
   imports: [
     AuthModule,
     AuditModule,
-    TypeOrmModule.forFeature([WorkspaceEntity, WorkspaceMemberEntity, ProjectEntity, WorkspacePolicyEntity])
+    TypeOrmModule.forFeature([WorkspaceEntity, WorkspaceMemberEntity, ProjectEntity, WorkspacePolicyEntity, RoleEntity])
   ],
   controllers: [WorkspacesController],
   providers: [
@@ -45,6 +48,10 @@ import { WorkspacesController } from './presentation/workspaces.controller';
     {
       provide: PROJECT_REPOSITORY,
       useClass: TypeOrmProjectRepository
+    },
+    {
+      provide: ROLE_REPOSITORY,
+      useClass: TypeOrmRoleRepository
     }
   ],
   exports: [TypeOrmModule, PROJECT_REPOSITORY, WORKSPACE_MEMBER_REPOSITORY, WorkspacePolicyService, WorkspaceMembersService]

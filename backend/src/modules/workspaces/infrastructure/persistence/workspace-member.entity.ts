@@ -1,5 +1,5 @@
-import { Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
-import { WorkspaceMemberRole } from '../../domain/workspace-member-role';
+import { Column, CreateDateColumn, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Unique, UpdateDateColumn } from 'typeorm';
+import { RoleEntity } from './role.entity';
 
 @Entity({ name: 'workspace_members' })
 @Unique('uq_workspace_members_workspace_user', ['workspaceId', 'userId'])
@@ -13,8 +13,12 @@ export class WorkspaceMemberEntity {
   @Column({ name: 'user_id', type: 'uuid' })
   userId!: string;
 
-  @Column({ type: 'varchar', length: 20 })
-  role!: WorkspaceMemberRole;
+  @Column({ name: 'role_id', type: 'uuid' })
+  roleId!: string;
+
+  @ManyToOne(() => RoleEntity)
+  @JoinColumn({ name: 'role_id' })
+  role!: RoleEntity;
 
   @CreateDateColumn({ name: 'created_at' })
   createdAt!: Date;

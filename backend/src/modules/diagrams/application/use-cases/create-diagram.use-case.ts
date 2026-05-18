@@ -9,7 +9,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canCreateDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import { DIAGRAM_REPOSITORY, DiagramRepository } from '../ports/diagram.repository';
 import { Diagram } from '../../domain/diagram';
 import { DiagramThemeConfig } from '../../domain/diagram-theme';
@@ -63,7 +63,7 @@ export class CreateDiagramUseCase {
       command.user.id
     );
 
-    if (membership === null || !canCreateDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_CREATE)) {
       throw new ForbiddenException('You do not have permission to create a diagram in this project.');
     }
 

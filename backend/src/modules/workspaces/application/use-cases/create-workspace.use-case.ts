@@ -3,8 +3,8 @@ import { randomUUID } from 'node:crypto';
 import { AuthenticatedUser } from '../../../../common/auth/authenticated-user';
 import { CurrentUserSyncService } from '../../../auth/application/current-user-sync.service';
 import { Workspace } from '../../domain/workspace';
-import { WorkspaceMemberRole } from '../../domain/workspace-member-role';
 import { buildWorkspaceSlug } from '../../domain/workspace-slug';
+import { ROLE_REPOSITORY, RoleRepository } from '../ports/role.repository';
 import { WORKSPACE_MEMBER_REPOSITORY, WorkspaceMemberRepository } from '../ports/workspace-member.repository';
 import { WORKSPACE_REPOSITORY, WorkspaceRepository } from '../ports/workspace.repository';
 
@@ -20,11 +20,19 @@ export class CreateWorkspaceUseCase {
     @Inject(WORKSPACE_REPOSITORY)
     private readonly workspaceRepository: WorkspaceRepository,
     @Inject(WORKSPACE_MEMBER_REPOSITORY)
-    private readonly workspaceMemberRepository: WorkspaceMemberRepository
+    private readonly workspaceMemberRepository: WorkspaceMemberRepository,
+    @Inject(ROLE_REPOSITORY)
+    private readonly roleRepository: RoleRepository
   ) {}
 
   async execute(input: CreateWorkspaceInput): Promise<Workspace> {
     await this.currentUserSyncService.ensureUser(input.user);
+
+    // Fetch the global owner role
+    const ownerRole = await this.roleRepository.findByNameAndWorkspaceId('owner', null);
+    if (!ownerRole) {
+      throw new Error('Default owner role not found');
+    }
 
     const workspace = Workspace.create({
       name: input.name,
@@ -36,7 +44,7 @@ export class CreateWorkspaceUseCase {
     await this.workspaceMemberRepository.addMember({
       workspaceId: savedWorkspace.id,
       userId: input.user.id,
-      role: WorkspaceMemberRole.OWNER
+      roleId: ownerRole.id
     });
 
     return savedWorkspace;

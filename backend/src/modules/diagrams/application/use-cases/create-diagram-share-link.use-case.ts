@@ -7,7 +7,7 @@ import {
   WORKSPACE_MEMBER_REPOSITORY,
   WorkspaceMemberRepository
 } from '../../../workspaces/application/ports/workspace-member.repository';
-import { canUpdateDiagram } from '../../../workspaces/domain/workspace-permissions';
+import { Permission } from '../../../workspaces/domain/permission';
 import { DiagramShareLink } from '../../domain/diagram-share-link';
 import {
   DIAGRAM_SHARE_LINK_REPOSITORY,
@@ -51,7 +51,7 @@ export class CreateDiagramShareLinkUseCase {
     }
 
     const membership = await this.workspaceMemberRepository.findByWorkspaceIdAndUserId(diagram.workspaceId, user.id);
-    if (membership === null || !canUpdateDiagram(membership.role)) {
+    if (membership === null || !membership.role.hasPermission(Permission.DIAGRAM_UPDATE)) {
       throw new ForbiddenException('You do not have permission to share this diagram.');
     }
     await this.workspacePolicyService.requireShareLinksAllowed(diagram.workspaceId);

@@ -1,10 +1,11 @@
-import { WorkspaceMemberRole } from './workspace-member-role';
+import { Role } from './role';
 
 export interface WorkspaceMember {
   id: string;
   workspaceId: string;
   userId: string;
-  role: WorkspaceMemberRole;
+  roleId: string;
+  role: Role;
   createdAt: Date;
   updatedAt: Date;
 }
