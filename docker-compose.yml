@@ -28,7 +28,11 @@ services:
     environment:
       - NODE_ENV=${NODE_ENV:-production}
       - PORT=3001
-      - DATABASE_URL=${DATABASE_URL:-postgresql://${POSTGRES_USER:-postgres}:${POSTGRES_PASSWORD:-password}@postgres:5432/${POSTGRES_DB:-flo_vis}?schema=public}
+      - DATABASE_HOST=${DATABASE_HOST:-postgres}
+      - DATABASE_PORT=${DATABASE_PORT:-5432}
+      - DATABASE_USERNAME=${DATABASE_USERNAME:-postgres}
+      - DATABASE_PASSWORD=${DATABASE_PASSWORD:-password}
+      - DATABASE_NAME=${DATABASE_NAME:-flo_vis}
       - CORS_ORIGINS=${CORS_ORIGINS:-http://localhost:3000}
     depends_on:
       postgres:
