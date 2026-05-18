@@ -1,32 +1,58 @@
-FROM node:22-alpine AS builder
+# Build stage
+FROM node:24.13.0-alpine AS builder
 
+# Set working directory
 WORKDIR /app
 
-# Copy root configs
-COPY package.json package-lock.json ./
-COPY backend/package.json ./backend/
+# Copy package files
+COPY package.json yarn.lock ./
 
 # Install dependencies
-RUN npm ci
+RUN yarn install --frozen-lockfile --production=false
 
-# Copy backend source
-COPY backend ./backend
+# Copy source code
+COPY . .
 
-# Build backend
-RUN npm run build --workspace backend
+# Build application
+RUN yarn build
 
-FROM node:22-alpine AS runner
+# Production stage
+FROM node:24.13.0-alpine AS production
 
+# Install dumb-init for proper signal handling
+RUN apk add --no-cache dumb-init
+
+# Create app user
+RUN addgroup -g 1001 -S nodejs
+RUN adduser -S nestjs -u 1001
+
+# Set working directory
 WORKDIR /app
 
-ENV NODE_ENV=production
-ENV PORT=3001
+# Copy package files
+COPY package.json yarn.lock ./
 
-# Copy compiled files and node_modules
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/backend/dist ./backend/dist
-COPY --from=builder /app/backend/package.json ./backend/package.json
+# Install only production dependencies
+RUN yarn install --frozen-lockfile --production=true && yarn cache clean
 
-EXPOSE 3001
+# Copy built application from builder stage
+COPY --from=builder /app/dist ./dist
 
-CMD ["node", "backend/dist/main.js"]
+# Copy all environment files (for dotenv loading at runtime)
+# Includes: .env, .env.local, .env.development, .env.staging, .env.production, etc.
+COPY .env* ./
+
+# Change ownership to nodejs user
+RUN chown -R nestjs:nodejs /app
+USER nestjs
+
+# Expose port
+EXPOSE 3000
+
+# Health check
+HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
+  CMD node --version || exit 1
+
+# Start application
+ENTRYPOINT ["dumb-init", "--"]
+CMD ["yarn", "start:prod"]
