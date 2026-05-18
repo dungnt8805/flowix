@@ -1,4 +1,5 @@
 import { Body, Controller, Delete, Get, Param, ParseUUIDPipe, Patch, Post } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { AuditEventSummary, AuditService } from '../../audit/audit.service';
 import { AuthenticatedUser } from '../../../common/auth/authenticated-user';
 import { CurrentUser } from '../../../common/auth/current-user.decorator';
@@ -22,6 +23,8 @@ interface UpdateWorkspacePolicyRequest {
   ssoRequired?: boolean;
 }
 
+@ApiTags('Workspaces')
+@ApiBearerAuth()
 @Controller('workspaces')
 export class WorkspacesController {
   constructor(

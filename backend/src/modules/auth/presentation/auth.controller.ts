@@ -1,4 +1,5 @@
 import { Body, Controller, Get, Ip, Post, Req } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Request } from 'express';
 import { AuthenticatedUser } from '../../../common/auth/authenticated-user';
 import { CurrentUser } from '../../../common/auth/current-user.decorator';
@@ -9,10 +10,10 @@ import { LoginRequest } from './dto/login.request';
 import { RefreshTokenRequest } from './dto/refresh-token.request';
 import { RegisterRequest } from './dto/register.request';
 import { ResetPasswordRequest } from './dto/reset-password.request';
-
+@ApiTags('Auth')  
 @Controller('auth')
 export class AuthController {
-  constructor(private readonly authService: AuthService) {}
+  constructor(private readonly authService: AuthService) { }
 
   @Public()
   @Post('register')

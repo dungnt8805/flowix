@@ -1,4 +1,5 @@
 import { BadRequestException, Body, Controller, Delete, Get, Header, Inject, Param, ParseUUIDPipe, Patch, Post, Res } from '@nestjs/common';
+import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { Response } from 'express';
 import { AuditService } from '../../audit/audit.service';
 import { AuthenticatedUser } from '../../../common/auth/authenticated-user';
@@ -52,6 +53,8 @@ interface PublicValidateRequest {
   sourceCode: string;
 }
 
+@ApiTags('Diagrams')
+@ApiBearerAuth()
 @Controller('diagrams')
 export class DiagramsController {
   constructor(
