@@ -40,7 +40,7 @@ COPY --from=builder /app/dist ./dist
 
 # Copy all environment files (for dotenv loading at runtime)
 # Includes: .env, .env.local, .env.development, .env.staging, .env.production, etc.
-COPY .env* ./
+COPY package.json .env* ./
 
 # Change ownership to nodejs user
 RUN chown -R nestjs:nodejs /app
