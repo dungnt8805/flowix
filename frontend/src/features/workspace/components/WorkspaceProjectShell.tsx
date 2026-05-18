@@ -8,7 +8,8 @@ import { MermaidPreview } from '@/features/renderer/components/MermaidPreview';
 import {
   createBrowserAuthTokenStore,
   createBrowserFloVisApiClient,
-  WorkspaceProjectApi
+  WorkspaceProjectApi,
+  AuthUserSummary
 } from '@/lib/api/floVisApiClient';
 import {
   DiagramCommentSummary,
@@ -99,6 +100,32 @@ export function WorkspaceProjectShell({
   const [apiClient] = useState<WorkspaceProjectApi | null>(
     () => apiClientProp ?? createBrowserFloVisApiClient()
   );
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const [currentUser, setCurrentUser] = useState<AuthUserSummary | null>(null);
+
+  useEffect(() => {
+    if (apiClient === null) {
+      setIsLoggedIn(true);
+      return;
+    }
+
+    const tokenStore = createBrowserAuthTokenStore();
+    const hasToken = !!tokenStore?.load()?.accessToken;
+    setIsLoggedIn(hasToken);
+
+    if (hasToken) {
+      apiClient
+        .getCurrentUser()
+        .then((user: AuthUserSummary) => {
+          setCurrentUser(user);
+        })
+        .catch(() => {
+          setCurrentUser(null);
+        });
+    } else {
+      setCurrentUser(null);
+    }
+  }, [apiClient]);
   const [workspaces, setWorkspaces] = useState<WorkspaceSummary[]>(() =>
     apiClient === null ? initialWorkspaces : []
   );
@@ -141,12 +168,17 @@ export function WorkspaceProjectShell({
   const [governanceMessage, setGovernanceMessage] = useState<string | null>(null);
   const [syncError, setSyncError] = useState<string | null>(null);
   const [isSyncing, setIsSyncing] = useState(false);
+  const [liveSourceCode, setLiveSourceCode] = useState('');
 
   const workspaceProjects = projects.filter((project) => project.workspaceId === selectedWorkspaceId);
   const projectDiagrams = diagrams.filter((diagram) => diagram.projectId === selectedProjectId);
   const selectedWorkspace = workspaces.find((workspace) => workspace.id === selectedWorkspaceId);
   const selectedProject = projects.find((project) => project.id === selectedProjectId);
   const selectedDiagram = diagrams.find((diagram) => diagram.id === selectedDiagramId);
+
+  useEffect(() => {
+    setLiveSourceCode(selectedDiagram?.sourceCode ?? '');
+  }, [selectedDiagramId, selectedDiagram?.sourceCode]);
   const currentWorkspaceRole = selectedWorkspace?.currentUserRole;
   const canCreateProjects = currentWorkspaceRole === undefined ? false : canCreateProject(currentWorkspaceRole);
   const canEditDiagram = selectedWorkspace === undefined ? false : canEdit(selectedWorkspace.currentUserRole);
@@ -385,6 +417,11 @@ export function WorkspaceProjectShell({
       return;
     }
 
+    if (apiClient !== null && !isLoggedIn) {
+      setSyncError('You must be signed in to create workspaces.');
+      return;
+    }
+
     try {
       setSyncError(null);
       const workspace =
@@ -412,6 +449,11 @@ export function WorkspaceProjectShell({
     const name = projectName.trim();
 
     if (name.length === 0 || selectedWorkspaceId.length === 0 || !canCreateProjects) {
+      return;
+    }
+
+    if (apiClient !== null && !isLoggedIn) {
+      setSyncError('You must be signed in to create projects.');
       return;
     }
 
@@ -926,548 +968,714 @@ export function WorkspaceProjectShell({
   }
 
   return (
-    <main className="workspace-shell">
-      <aside className="workspace-rail" aria-label="Workspace navigation">
-        <div className="brand-lockup">
-          <span className="brand-mark">FV</span>
-          <div>
-            <h1>Flo Vis</h1>
-            <p>Mermaid workbench</p>
-          </div>
-        </div>
-
-        <form className="compact-form" onSubmit={(event) => void createWorkspace(event)}>
-          <label htmlFor="workspace-name">Workspace</label>
-          <div className="inline-form-row">
-            <input
-              id="workspace-name"
-              value={workspaceName}
-              onChange={(event) => setWorkspaceName(event.target.value)}
-              placeholder="New workspace"
-            />
-            <button type="submit">Create</button>
-          </div>
-        </form>
-
-        <nav className="nav-stack" aria-label="Workspaces">
-          {workspaces.map((workspace) => (
-            <button
-              className={workspace.id === selectedWorkspaceId ? 'nav-item active' : 'nav-item'}
-              key={workspace.id}
-              type="button"
-              onClick={() => {
-                setSelectedWorkspaceId(workspace.id);
-                const nextProjectId =
-                  projects.find((project) => project.workspaceId === workspace.id)?.id ?? '';
-                setSelectedProjectId(nextProjectId);
-                setSelectedDiagramId(
-                  diagrams.find((diagram) => diagram.projectId === nextProjectId)?.id ?? ''
-                );
-              }}
-            >
-              <span>{workspace.name}</span>
-              <small>{workspace.slug}</small>
-            </button>
-          ))}
-        </nav>
-
-        <form className="compact-form" onSubmit={(event) => void createProject(event)}>
-          <label htmlFor="project-name">Project</label>
-          <div className="inline-form-row">
-            <input
-              id="project-name"
-              value={projectName}
-              onChange={(event) => setProjectName(event.target.value)}
-              placeholder="New project"
-              disabled={!canCreateProjects}
-            />
-            <button type="submit" disabled={!canCreateProjects}>Add</button>
-          </div>
-        </form>
-
-        <nav className="nav-stack" aria-label="Projects">
-          {workspaceProjects.length === 0 ? (
-            <p className="empty-copy">No projects yet.</p>
-          ) : (
-            workspaceProjects.map((project) => (
-              <button
-                className={project.id === selectedProjectId ? 'nav-item active' : 'nav-item'}
-                key={project.id}
-                type="button"
-                onClick={() => {
-                  setSelectedProjectId(project.id);
-                  setSelectedDiagramId(
-                    diagrams.find((diagram) => diagram.projectId === project.id)?.id ?? ''
-                  );
-                }}
-              >
-                <span>{project.name}</span>
-                <small>{project.description ?? 'No description'}</small>
-              </button>
-            ))
-          )}
-        </nav>
-      </aside>
-
-      <div className="workspace-main">
-        <header className="topbar">
-          <div>
-            <p className="eyebrow">{selectedWorkspace?.name ?? 'Workspace'}</p>
-            <h2>{selectedProject?.name ?? 'Project setup'}</h2>
-          </div>
-          <div className="topbar-actions">
-            <a className="text-link" href="/login">
-              Sign in
-            </a>
-            <button className="text-button" type="button" onClick={handleLogout}>
-              Log out
-            </button>
-            <span className="status">{isSyncing ? 'Syncing API data' : 'Sprint 3 API-ready shell'}</span>
-          </div>
-        </header>
-
-        {syncError === null ? null : (
-          <div className="sync-error" role="alert">
-            {syncError}
-          </div>
-        )}
-
-        <section className="diagram-list-band" aria-label="Project diagrams">
-          <div className="section-heading">
+    <main className="h-screen w-screen flex bg-slate-950 text-slate-100 overflow-hidden font-sans select-none" aria-label="Flo Vis Application">
+      
+      {/* 1. LEFT WORKSPACE & SELECTORS RAIL */}
+      <aside className="w-[260px] flex-shrink-0 flex flex-col bg-slate-950 border-r border-slate-800/80 h-full p-4 justify-between" aria-label="Workspace navigation">
+        <div className="flex flex-col gap-5 min-h-0">
+          {/* Brand lockup */}
+          <div className="flex items-center gap-3">
+            <span className="flex items-center justify-center w-10 h-10 rounded-lg bg-teal-500 text-slate-950 font-bold text-base shadow-md shadow-teal-500/20 active:scale-95 transition-transform duration-100">FV</span>
             <div>
-              <p className="eyebrow">Project diagrams</p>
-              <h3>{projectDiagrams.length} charts</h3>
+              <h1 className="text-xs font-bold tracking-wider text-slate-200">Flo Vis</h1>
+              <p className="text-[9px] text-slate-500 font-semibold tracking-wider uppercase leading-none">Mermaid workbench</p>
             </div>
-            <div className="template-create-controls">
-              <label htmlFor="diagram-template">Template</label>
-              <select
-                id="diagram-template"
-                value={templateId}
-                onChange={(event) => setTemplateId(event.target.value)}
-              >
-                {diagramTemplates.map((template) => (
-                  <option key={template.id} value={template.id}>
-                    {template.name}
-                  </option>
+          </div>
+
+          {/* Nav Selectors */}
+          <div className="flex flex-col gap-4 min-h-0 overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-800">
+            {/* Workspaces Section */}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex justify-between items-center">
+                <label htmlFor="workspace-name" className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  Workspace
+                </label>
+                {!isLoggedIn && <span className="text-red-400 text-[9px] font-normal lowercase">(auth required)</span>}
+              </div>
+
+              <nav className="flex flex-col gap-1 max-h-36 overflow-y-auto bg-slate-900/40 p-1.5 rounded-lg border border-slate-850" aria-label="Workspaces">
+                {workspaces.map((workspace) => (
+                  <button
+                    className={`w-full text-left px-2 py-1.5 rounded text-xs transition-all duration-100 flex flex-col justify-center ${workspace.id === selectedWorkspaceId ? 'bg-teal-500/10 text-teal-400 font-semibold border border-teal-500/20' : 'text-slate-400 hover:bg-slate-850 hover:text-slate-200 border border-transparent'}`}
+                    key={workspace.id}
+                    type="button"
+                    onClick={() => {
+                      setSelectedWorkspaceId(workspace.id);
+                      const nextProjectId = projects.find((project) => project.workspaceId === workspace.id)?.id ?? '';
+                      setSelectedProjectId(nextProjectId);
+                      setSelectedDiagramId(diagrams.find((diagram) => diagram.projectId === nextProjectId)?.id ?? '');
+                    }}
+                  >
+                    <span className="truncate">{workspace.name}</span>
+                  </button>
                 ))}
-              </select>
-              <button
-                className="primary-action"
-                type="button"
-                onClick={() => void createDiagram()}
-                disabled={selectedProjectId.length === 0 || !canEditDiagram}
-              >
-                New diagram
-              </button>
-            </div>
-          </div>
+              </nav>
 
-          {projectDiagrams.length === 0 ? (
-            <div className="diagram-empty-state">
-              <h3>No diagrams in this project</h3>
-              <p>Create the first Mermaid chart for {selectedProject?.name ?? 'this project'}.</p>
-            </div>
-          ) : (
-            <div className="diagram-list">
-              {projectDiagrams.map((diagram) => (
+              {/* Create workspace */}
+              <form className="mt-1 flex gap-1.5" onSubmit={(event) => void createWorkspace(event)}>
+                <input
+                  id="workspace-name"
+                  className="flex-1 min-w-0 bg-slate-900 text-slate-200 border border-slate-800 rounded px-2 py-1 text-[11px] placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-teal-500/40"
+                  value={workspaceName}
+                  onChange={(event) => setWorkspaceName(event.target.value)}
+                  placeholder={isLoggedIn ? "New workspace" : "Sign in to create"}
+                  disabled={!isLoggedIn}
+                />
                 <button
-                  className={diagram.id === selectedDiagramId ? 'diagram-row active' : 'diagram-row'}
-                  key={diagram.id}
-                  type="button"
-                  onClick={() => setSelectedDiagramId(diagram.id)}
+                  type="submit"
+                  className="bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-slate-100 border border-slate-700/60 text-[10px] font-semibold px-2 py-1 rounded transition-colors disabled:opacity-50"
+                  disabled={!isLoggedIn}
                 >
-                  <span>
-                    <strong>{diagram.title}</strong>
-                    <small>{diagram.description ?? 'No description'}</small>
-                  </span>
-                  <span className="diagram-meta">
-                    {diagram.diagramType} / {diagram.updatedAtLabel}
-                  </span>
+                  Create
                 </button>
-              ))}
+              </form>
             </div>
-          )}
-        </section>
 
-        <div className="presentation-toolbar">
-          <button className="secondary-action" type="button" onClick={() => setPresentationMode((value) => !value)}>
-            {presentationMode ? 'Exit presentation' : 'Present'}
-          </button>
-          <button className="secondary-action" type="button" onClick={() => void exportSource()}>
-            Export
-          </button>
-          <button
-            className="secondary-action"
-            type="button"
-            onClick={() => void createShareLink()}
-            disabled={!canEditDiagram}
-          >
-            Share
-          </button>
-        </div>
-
-        {presentationMode && selectedDiagram !== undefined ? (
-          <section className="presentation-stage" aria-label="Presentation mode">
-            <div className="presentation-copy">
-              <p className="eyebrow">{selectedWorkspace?.name ?? 'Workspace'}</p>
-              <h2>{selectedDiagram.title}</h2>
-            </div>
-            <MermaidPreview source={selectedDiagram.sourceCode} theme={selectedDiagram.themeConfig.theme} />
-          </section>
-        ) : (
-          <DiagramEditorScreen
-            contextLabel={`${selectedWorkspace?.name ?? 'Workspace'} / ${selectedProject?.name ?? 'Project'}`}
-            draft={
-              selectedDiagram === undefined
-                ? undefined
-                : {
-                    title: selectedDiagram.title,
-                    sourceCode: selectedDiagram.sourceCode,
-                    themeConfig: selectedDiagram.themeConfig
-                  }
-            }
-            draftKey={selectedDiagram?.id ?? 'empty'}
-            onSave={selectedDiagram === undefined || !canEditDiagram ? undefined : saveSelectedDiagram}
-            statusLabel={canEditDiagram ? 'Editor role can save' : 'Read-only role'}
-          />
-        )}
-
-        <section className="import-band" aria-label="Import diagrams">
-          <div className="utility-panel">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Import</p>
-                <h3>Mermaid source</h3>
+            {/* Projects Section */}
+            <div className="flex flex-col gap-1.5">
+              <div className="flex justify-between items-center">
+                <label htmlFor="project-name" className="text-[10px] font-bold text-slate-400 uppercase tracking-wider">
+                  Project
+                </label>
+                {!isLoggedIn && <span className="text-red-400 text-[9px] font-normal lowercase">(auth required)</span>}
               </div>
-            </div>
-            <textarea
-              aria-label="Imported .mmd content"
-              value={importSource}
-              onChange={(event) => setImportSource(event.target.value)}
-              placeholder="Paste .mmd source"
-              disabled={!canEditDiagram}
-            />
-            <button className="secondary-action" type="button" onClick={() => void importMermaidSource()} disabled={!canEditDiagram}>
-              Import .mmd
-            </button>
-          </div>
-          <div className="utility-panel">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Markdown</p>
-                <h3>{markdownBlocks.length} blocks</h3>
-              </div>
-            </div>
-            <textarea
-              aria-label="Markdown Mermaid import"
-              value={markdownSource}
-              onChange={(event) => setMarkdownSource(event.target.value)}
-              placeholder="Paste Markdown with ```mermaid blocks"
-              disabled={!canEditDiagram}
-            />
-            <button className="secondary-action" type="button" onClick={() => void parseMarkdownSource()} disabled={!canEditDiagram}>
-              Detect blocks
-            </button>
-            <div className="version-list">
-              {markdownBlocks.map((block) => (
-                <button className="diagram-row" key={block.index} type="button" onClick={() => void importMarkdownBlock(block)} disabled={!canEditDiagram}>
-                  <span>
-                    <strong>{block.title}</strong>
-                    <small>{block.sourceCode.split('\n')[0]}</small>
-                  </span>
-                  <span className="diagram-meta">Import</span>
-                </button>
-              ))}
-            </div>
-          </div>
-        </section>
 
-        {selectedDiagram === undefined ? null : (
-          <section className="diagram-utilities" aria-label="Diagram utilities">
-            <div className="utility-panel">
-              <div className="section-heading">
-                <div>
-                  <p className="eyebrow">Versions</p>
-                  <h3>{diagramVersions.length} snapshots</h3>
-                </div>
-                {restoreMessage === null ? null : <span className="status">{restoreMessage}</span>}
-              </div>
-              <div className="version-list">
-                {diagramVersions.length === 0 ? (
-                  <p className="empty-copy">No versions yet.</p>
+              <nav className="flex flex-col gap-1 max-h-36 overflow-y-auto bg-slate-900/40 p-1.5 rounded-lg border border-slate-850" aria-label="Projects">
+                {workspaceProjects.length === 0 ? (
+                  <p className="text-[10px] text-slate-600 italic px-2 py-1">No projects yet.</p>
                 ) : (
-                  diagramVersions.map((version) => (
+                  workspaceProjects.map((project) => (
                     <button
-                      aria-label={`Restore snapshot from ${new Date(version.createdAt).toLocaleString()}`}
-                      className="diagram-row"
-                      key={version.id}
+                      className={`w-full text-left px-2 py-1.5 rounded text-xs transition-all duration-100 flex flex-col justify-center ${project.id === selectedProjectId ? 'bg-teal-500/10 text-teal-400 font-semibold border border-teal-500/20' : 'text-slate-400 hover:bg-slate-850 hover:text-slate-200 border border-transparent'}`}
+                      key={project.id}
                       type="button"
-                      onClick={() => void restoreVersion(version)}
-                      disabled={!canEditDiagram}
+                      onClick={() => {
+                        setSelectedProjectId(project.id);
+                        setSelectedDiagramId(diagrams.find((diagram) => diagram.projectId === project.id)?.id ?? '');
+                      }}
                     >
-                      <span>
-                        <strong>{version.title}</strong>
-                        <small>{new Date(version.createdAt).toLocaleString()}</small>
-                      </span>
-                      <span className="diagram-meta">Restore</span>
+                      <span className="truncate">{project.name}</span>
                     </button>
                   ))
                 )}
-              </div>
-            </div>
+              </nav>
 
-            <div className="utility-panel">
-              <div className="section-heading">
-                <div>
-                  <p className="eyebrow">Export</p>
-                  <h3>Portable source</h3>
-                </div>
-                {exportMessage === null ? null : <span className="status">{exportMessage}</span>}
-              </div>
-              <button className="secondary-action" type="button" onClick={() => void exportSource()}>
-                Export .mmd
-              </button>
+              {/* Create project */}
+              <form className="mt-1 flex gap-1.5" onSubmit={(event) => void createProject(event)}>
+                <input
+                  id="project-name"
+                  className="flex-1 min-w-0 bg-slate-900 text-slate-200 border border-slate-800 rounded px-2 py-1 text-[11px] placeholder-slate-600 focus:outline-none focus:ring-1 focus:ring-teal-500/40"
+                  value={projectName}
+                  onChange={(event) => setProjectName(event.target.value)}
+                  placeholder={isLoggedIn ? "New project" : "Sign in to add"}
+                  disabled={!isLoggedIn || !canCreateProjects}
+                />
+                <button
+                  type="submit"
+                  className="bg-slate-800 hover:bg-slate-750 text-slate-300 hover:text-slate-100 border border-slate-700/60 text-[10px] font-semibold px-2.5 py-1 rounded transition-colors disabled:opacity-50"
+                  disabled={!isLoggedIn || !canCreateProjects}
+                >
+                  Add
+                </button>
+              </form>
             </div>
+          </div>
+        </div>
 
-            <div className="utility-panel">
-              <div className="section-heading">
-                <div>
-                  <p className="eyebrow">Share</p>
-                  <h3>Read-only links</h3>
+        {/* User profile / bottom actions */}
+        <div className="flex flex-col gap-2 pt-4 border-t border-slate-800/80">
+          {isLoggedIn ? (
+            <div className="flex flex-col gap-1.5">
+              {currentUser && (
+                <div className="text-[10px] text-slate-400 truncate">
+                  User: <span className="font-semibold text-slate-200">{currentUser.displayName || currentUser.email}</span>
                 </div>
-                {shareMessage === null ? null : <span className="status">{shareMessage}</span>}
-              </div>
+              )}
               <button
-                className="secondary-action"
+                className="w-full text-center py-1.5 rounded text-xs font-semibold bg-slate-900 hover:bg-slate-850 hover:text-red-400 text-slate-300 transition-colors border border-slate-800"
                 type="button"
-                onClick={() => void createShareLink()}
-                disabled={!canEditDiagram}
+                onClick={handleLogout}
               >
-                New share link
+                Log out
               </button>
-              <div className="version-list">
-                {shareLinks.map((link) => (
+            </div>
+          ) : (
+            <div className="grid grid-cols-2 gap-2">
+              <a href="/login" className="text-center py-1.5 rounded text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-300 border border-slate-850 transition-all active:scale-95">Sign in</a>
+              <a href="/login?mode=register" className="text-center py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 transition-all active:scale-95 shadow-md shadow-teal-500/10">Sign up</a>
+            </div>
+          )}
+        </div>
+      </aside>
+
+      {/* 2. UTILITY DOCK (420px) */}
+      <section className="w-[420px] flex-shrink-0 flex flex-col bg-slate-900 border-r border-slate-800 h-full overflow-hidden" aria-label="Diagram utilities">
+        <div className="flex-1 overflow-y-auto p-4 flex flex-col gap-5 scrollbar-thin scrollbar-thumb-slate-800">
+          
+          {/* 1. Project Diagrams List & Starter Templates */}
+          <section className="diagram-list-band flex flex-col gap-3" aria-label="Project diagrams">
+            <div className="section-heading bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-3.5">
+              <div>
+                <p className="eyebrow text-slate-500">Project diagrams</p>
+                <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">{projectDiagrams.length} charts</h3>
+              </div>
+              <div className="template-create-controls flex flex-col gap-2 w-full">
+                <label htmlFor="diagram-template" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Template</label>
+                <select
+                  id="diagram-template"
+                  className="w-full bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"
+                  value={templateId}
+                  onChange={(event) => setTemplateId(event.target.value)}
+                >
+                  {diagramTemplates.map((template) => (
+                    <option key={template.id} value={template.id}>{template.name}</option>
+                  ))}
+                </select>
+                <button
+                  className="primary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 transition-all shadow-md shadow-teal-500/10 active:scale-95 duration-100"
+                  type="button"
+                  onClick={() => void createDiagram()}
+                  disabled={selectedProjectId.length === 0 || !canEditDiagram}
+                >
+                  New diagram
+                </button>
+              </div>
+            </div>
+
+            {projectDiagrams.length === 0 ? (
+              <div className="diagram-empty-state text-center p-8 bg-slate-950/20 border border-slate-850 rounded-lg">
+                <h3 className="text-xs font-semibold text-slate-400">No diagrams in this project</h3>
+                <p className="text-[11px] text-slate-500 mt-1">Create the first Mermaid chart.</p>
+              </div>
+            ) : (
+              <div className="diagram-list flex flex-col gap-1.5">
+                {projectDiagrams.map((diagram) => (
                   <button
-                    aria-label={`Revoke share link ${link.url ?? link.id}`}
-                    className="diagram-row"
-                    disabled={link.revokedAt !== null}
-                    key={link.id}
+                    className={diagram.id === selectedDiagramId ? 'diagram-row active bg-teal-500/10 text-teal-400 border border-teal-500/30' : 'diagram-row'}
+                    key={diagram.id}
                     type="button"
-                    onClick={() => void revokeShareLink(link)}
+                    onClick={() => setSelectedDiagramId(diagram.id)}
                   >
                     <span>
-                      <strong>{link.url ?? '/share/link'}</strong>
-                      <small>{link.revokedAt === null ? 'Active read-only link' : 'Revoked'}</small>
+                      <strong className="block truncate max-w-[280px]">{diagram.title}</strong>
+                      <small className="block truncate max-w-[280px]">{diagram.description ?? 'No description'}</small>
                     </span>
-                    <span className="diagram-meta">Revoke</span>
+                    <span className="diagram-meta">{diagram.diagramType} / {diagram.updatedAtLabel}</span>
                   </button>
                 ))}
               </div>
-            </div>
+            )}
+          </section>
 
-            <div className="utility-panel">
+          {/* 2. Import & Detect Band */}
+          <section className="import-band flex flex-col gap-4">
+            {/* Mermaid Source Import */}
+            <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-2.5">
               <div className="section-heading">
                 <div>
-                  <p className="eyebrow">Comments</p>
-                  <h3>{diagramComments.length} open notes</h3>
+                  <p className="eyebrow text-slate-500">Import</p>
+                  <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">Mermaid source</h3>
                 </div>
-                {commentMessage === null ? null : <span className="status">{commentMessage}</span>}
               </div>
-              <form className="comment-form" onSubmit={(event) => void createComment(event)}>
-                <label htmlFor="diagram-comment">Comment</label>
-                <textarea
-                  id="diagram-comment"
-                  value={commentBody}
-                  onChange={(event) => setCommentBody(event.target.value)}
-                  placeholder="Leave review feedback"
-                  disabled={!canCommentDiagram}
-                />
-                <button className="secondary-action" type="submit" disabled={!canCommentDiagram}>
-                  Add comment
-                </button>
-              </form>
-              <div className="version-list">
-                {diagramComments.length === 0 ? (
-                  <p className="empty-copy">No comments yet.</p>
-                ) : (
-                  diagramComments.map((comment) => (
-                    <article className="diagram-row comment-row" key={comment.id}>
+              <textarea
+                aria-label="Imported .mmd content"
+                placeholder="Paste .mmd source"
+                className="w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"
+                value={importSource}
+                onChange={(event) => setImportSource(event.target.value)}
+                disabled={!canEditDiagram}
+              />
+              <button
+                className="secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"
+                type="button"
+                onClick={() => void importMermaidSource()}
+                disabled={!canEditDiagram}
+              >
+                Import .mmd
+              </button>
+            </div>
+
+            {/* Markdown Parser Import */}
+            <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-2.5">
+              <div className="section-heading">
+                <div>
+                  <p className="eyebrow text-slate-500">Markdown</p>
+                  <h3 className="text-xs font-bold text-slate-300 uppercase tracking-wider">{markdownBlocks.length} blocks</h3>
+                </div>
+              </div>
+              <textarea
+                aria-label="Markdown Mermaid import"
+                placeholder="Paste Markdown with ```mermaid blocks"
+                className="w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"
+                value={markdownSource}
+                onChange={(event) => setMarkdownSource(event.target.value)}
+                disabled={!canEditDiagram}
+              />
+              <button
+                className="secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"
+                type="button"
+                onClick={() => void parseMarkdownSource()}
+                disabled={!canEditDiagram}
+              >
+                Detect blocks
+              </button>
+
+              {markdownBlocks.length > 0 && (
+                <div className="version-list flex flex-col gap-1.5 mt-2 max-h-36 overflow-y-auto pr-1 scrollbar-thin">
+                  {markdownBlocks.map((block) => (
+                    <button
+                      className="diagram-row"
+                      key={block.index}
+                      type="button"
+                      onClick={() => void importMarkdownBlock(block)}
+                      disabled={!canEditDiagram}
+                    >
                       <span>
-                        <strong>{comment.body}</strong>
-                        <small>{new Date(comment.createdAt).toLocaleString()}</small>
+                        <strong>{block.title}</strong>
+                        <small className="block truncate max-w-[280px]">{block.sourceCode.split('\n')[0]}</small>
                       </span>
+                      <span className="diagram-meta">Import</span>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </section>
+
+          {/* 3. Diagram Editor Controls (Mock Save) */}
+          <section className="diagram-editor-band flex flex-col gap-4">
+            <DiagramEditorScreen
+              contextLabel={`${selectedWorkspace?.name ?? 'Workspace'} / ${selectedProject?.name ?? 'Project'}`}
+              draft={
+                selectedDiagram === undefined
+                  ? undefined
+                  : {
+                      title: selectedDiagram.title,
+                      sourceCode: selectedDiagram.sourceCode,
+                      themeConfig: selectedDiagram.themeConfig
+                    }
+              }
+              draftKey={selectedDiagram?.id ?? ''}
+              onSave={selectedDiagram === undefined || !canEditDiagram ? undefined : saveSelectedDiagram}
+              statusLabel={canEditDiagram ? 'Editor role can save' : 'Read-only role'}
+              onSourceChange={(sourceCode) => setLiveSourceCode(sourceCode)}
+            />
+          </section>
+
+          {/* 4. Diagram Utilities (Versions, Exports, Share links, Comments) */}
+          {selectedDiagram !== undefined && (
+            <div className="flex flex-col gap-5">
+              
+              {/* Snapshots / Versions */}
+              <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md">
+                <div className="section-heading mb-2">
+                  <div>
+                    <p className="eyebrow">Versions</p>
+                    <h3>{diagramVersions.length} snapshots</h3>
+                  </div>
+                  {restoreMessage === null ? null : <span className="status text-[10px] text-teal-400">{restoreMessage}</span>}
+                </div>
+                <div className="version-list flex flex-col gap-1.5 max-h-[380px] overflow-y-auto pr-1 scrollbar-thin">
+                  {diagramVersions.length === 0 ? (
+                    <p className="empty-copy text-xs text-slate-650 italic py-2">No versions yet.</p>
+                  ) : (
+                    diagramVersions.map((version) => (
                       <button
-                        className="inline-row-action"
+                        aria-label={`Restore snapshot from ${new Date(version.createdAt).toLocaleString()}`}
+                        className="diagram-row"
+                        key={version.id}
                         type="button"
-                        onClick={() => void setCommentStatus(comment)}
-                        disabled={!canCommentDiagram}
+                        onClick={() => void restoreVersion(version)}
+                        disabled={!canEditDiagram}
                       >
-                        {comment.status === 'open' ? 'Resolve' : 'Reopen'}
+                        <span>
+                          <strong>{version.title}</strong>
+                          <small>{new Date(version.createdAt).toLocaleString()}</small>
+                        </span>
+                        <span className="diagram-meta">Restore</span>
                       </button>
+                    ))
+                  )}
+                </div>
+              </div>
+
+              {/* Quick Exports */}
+              <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md">
+                <div className="section-heading mb-2">
+                  <div>
+                    <p className="eyebrow">Export</p>
+                    <h3>Portable source</h3>
+                  </div>
+                  {exportMessage === null ? null : <span className="status text-[10px] text-teal-400">{exportMessage}</span>}
+                </div>
+                <button
+                  className="secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700/60"
+                  type="button"
+                  onClick={() => void exportSource()}
+                >
+                  Export .mmd
+                </button>
+              </div>
+
+              {/* Share Link Manager */}
+              <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md">
+                <div className="section-heading mb-2">
+                  <div>
+                    <p className="eyebrow">Share</p>
+                    <h3>Read-only links</h3>
+                  </div>
+                  {shareMessage === null ? null : <span className="status text-[10px] text-teal-400">{shareMessage}</span>}
+                </div>
+                <button
+                  className="secondary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent shadow-md shadow-teal-500/10"
+                  type="button"
+                  onClick={() => void createShareLink()}
+                  disabled={!canEditDiagram}
+                >
+                  New share link
+                </button>
+                <div className="version-list flex flex-col gap-1.5 mt-3 max-h-[220px] overflow-y-auto pr-1 scrollbar-thin">
+                  {shareLinks.map((link) => (
+                    <button
+                      aria-label={`Revoke share link ${link.url ?? link.id}`}
+                      className="diagram-row"
+                      disabled={link.revokedAt !== null}
+                      key={link.id}
+                      type="button"
+                      onClick={() => void revokeShareLink(link)}
+                    >
+                      <span>
+                        <strong>{link.url ?? '/share/link'}</strong>
+                        <small>{link.revokedAt === null ? 'Active read-only link' : 'Revoked'}</small>
+                      </span>
+                      <span className="diagram-meta">Revoke</span>
+                    </button>
+                  ))}
+                </div>
+              </div>
+
+              {/* Comments Feed & Form */}
+              <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md">
+                <div className="section-heading mb-2">
+                  <div>
+                    <p className="eyebrow">Comments</p>
+                    <h3>{diagramComments.length} open notes</h3>
+                  </div>
+                  {commentMessage === null ? null : <span className="status text-[10px] text-teal-400">{commentMessage}</span>}
+                </div>
+                <form className="comment-form flex flex-col gap-2 mb-3" onSubmit={(event) => void createComment(event)}>
+                  <label htmlFor="diagram-comment" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Comment</label>
+                  <textarea
+                    id="diagram-comment"
+                    className="w-full bg-slate-950 text-slate-100 font-sans text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[50px] placeholder-slate-700"
+                    value={commentBody}
+                    onChange={(event) => setCommentBody(event.target.value)}
+                    placeholder="Leave review feedback"
+                    disabled={!canCommentDiagram}
+                  />
+                  <button
+                    className="secondary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent shadow-md shadow-teal-500/10"
+                    type="submit"
+                    disabled={!canCommentDiagram}
+                  >
+                    Add comment
+                  </button>
+                </form>
+                <div className="version-list flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-1 scrollbar-thin">
+                  {diagramComments.length === 0 ? (
+                    <p className="empty-copy text-xs text-slate-650 italic py-2">No comments yet.</p>
+                  ) : (
+                    diagramComments.map((comment) => (
+                      <article className="diagram-row comment-row flex justify-between items-center bg-slate-950/50 p-2.5 rounded-lg border border-slate-850" key={comment.id}>
+                        <span>
+                          <strong className="text-xs text-slate-200 font-medium leading-relaxed block">{comment.body}</strong>
+                          <small className="text-[10px] text-slate-500">{new Date(comment.createdAt).toLocaleString()}</small>
+                        </span>
+                        <button
+                          className="inline-row-action text-[10px] font-bold text-teal-400 hover:bg-teal-500/10 px-1.5 py-0.5 rounded"
+                          type="button"
+                          onClick={() => void setCommentStatus(comment)}
+                          disabled={!canCommentDiagram}
+                        >
+                          {comment.status === 'open' ? 'Resolve' : 'Reopen'}
+                        </button>
+                      </article>
+                    ))
+                  )}
+                </div>
+              </div>
+
+            </div>
+          )}
+
+          {/* 5. Enterprise Governance Policies & Members */}
+          <section className="governance-band flex flex-col gap-5 border-t border-slate-800/80 pt-4" aria-label="Enterprise governance">
+            
+            {/* Policies Panel */}
+            <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md">
+              <div className="section-heading mb-2">
+                <div>
+                  <p className="eyebrow">Policies</p>
+                  <h3>Workspace controls</h3>
+                </div>
+                {governanceMessage === null ? null : <span className="status text-[10px] text-teal-400">{governanceMessage}</span>}
+              </div>
+              {workspacePolicy === null ? (
+                <p className="empty-copy text-xs text-slate-650 italic py-2">Policy settings unavailable.</p>
+              ) : (
+                <div className="policy-grid flex flex-col gap-2 text-xs">
+                  <label className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                    <input
+                      type="checkbox"
+                      className="rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"
+                      checked={workspacePolicy.allowShareLinks}
+                      onChange={(event) => void updatePolicy({ allowShareLinks: event.target.checked })}
+                      disabled={!canManageWorkspace}
+                    />
+                    <span>Share links</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                    <input
+                      type="checkbox"
+                      className="rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"
+                      checked={workspacePolicy.allowExports}
+                      onChange={(event) => void updatePolicy({ allowExports: event.target.checked })}
+                      disabled={!canManageWorkspace}
+                    />
+                    <span>Exports</span>
+                  </label>
+                  <label className="flex items-center gap-2 cursor-pointer text-slate-300 hover:text-slate-100">
+                    <input
+                      type="checkbox"
+                      className="rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"
+                      checked={workspacePolicy.ssoRequired}
+                      onChange={(event) => void updatePolicy({ ssoRequired: event.target.checked })}
+                      disabled={!canManageWorkspace}
+                    />
+                    <span>SSO required</span>
+                  </label>
+                  <label className="flex flex-col gap-1 mt-1">
+                    Retention days
+                    <input
+                      type="number"
+                      className="bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1 text-xs focus:ring-1 focus:ring-teal-500/50 mt-1"
+                      min="30"
+                      max="3650"
+                      value={workspacePolicy.retentionDays}
+                      onChange={(event) => void updatePolicy({ retentionDays: Number(event.target.value) })}
+                      disabled={!canManageWorkspace}
+                    />
+                  </label>
+                  <button
+                    className="secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 mt-1.5 transition-colors"
+                    type="button"
+                    onClick={() => void enforceRetention()}
+                    disabled={!canManageWorkspace}
+                  >
+                    Enforce retention
+                  </button>
+                </div>
+              )}
+            </div>
+
+            {/* Members Panel */}
+            <div className="utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md">
+              <div className="section-heading mb-2.5">
+                <div>
+                  <p className="eyebrow">Members</p>
+                  <h3>{workspaceMembers.length} people</h3>
+                </div>
+              </div>
+              <form className="member-form flex flex-col gap-2 mb-3" onSubmit={(event) => void addWorkspaceMember(event)}>
+                <label htmlFor="member-email" className="text-[10px] font-bold text-slate-500 uppercase tracking-wider block">Add member</label>
+                <input
+                  id="member-email"
+                  aria-label="Member email"
+                  type="email"
+                  placeholder="member@example.com"
+                  className="w-full bg-slate-950 text-slate-100 text-xs p-2 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50"
+                  value={memberEmail}
+                  onChange={(event) => setMemberEmail(event.target.value)}
+                  disabled={!canManageWorkspace}
+                />
+                <div className="flex gap-2">
+                  <select
+                    aria-label="Member role"
+                    className="flex-1 bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"
+                    value={memberRole}
+                    onChange={(event) => setMemberRole(event.target.value as WorkspaceRole)}
+                    disabled={!canManageWorkspace}
+                  >
+                    {getAssignableWorkspaceRoles(currentWorkspaceRole).map((role) => (
+                      <option key={role} value={role}>{role}</option>
+                    ))}
+                  </select>
+                  <button
+                    className="primary-action px-3 py-1 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent transition-colors disabled:opacity-50"
+                    type="submit"
+                    disabled={!canManageWorkspace}
+                  >
+                    Add member
+                  </button>
+                </div>
+              </form>
+              <div className="version-list flex flex-col gap-1.5 max-h-[300px] overflow-y-auto pr-1 scrollbar-thin">
+                {workspaceMembers.length === 0 ? (
+                  <p className="empty-copy text-xs text-slate-650 italic py-2">No members loaded.</p>
+                ) : (
+                  workspaceMembers.slice(0, 6).map((member) => (
+                    <article className="diagram-row comment-row flex justify-between items-center bg-slate-950/50 p-2.5 rounded-lg border border-slate-850" key={member.id}>
+                      <span>
+                        <strong className="text-xs text-slate-200 font-medium leading-relaxed block truncate max-w-[150px]">{member.displayName ?? member.email}</strong>
+                        <small className="text-[10px] text-slate-500 truncate block max-w-[150px]">{member.email}</small>
+                      </span>
+                      <div className="flex items-center gap-1.5">
+                        <select
+                          aria-label={`Role for ${member.email}`}
+                          className="bg-slate-900 text-slate-200 border border-slate-800 rounded px-1.5 py-0.5 text-[10px] focus:ring-1 focus:ring-teal-500/50 cursor-pointer"
+                          value={member.role}
+                          onChange={(event) =>
+                            void updateWorkspaceMemberRole(member.userId, event.target.value as WorkspaceRole)
+                          }
+                          disabled={!canManageWorkspaceMember(currentWorkspaceRole, member.role)}
+                        >
+                          {getAssignableWorkspaceRoles(currentWorkspaceRole).map((role) => (
+                            <option key={role} value={role}>{role}</option>
+                          ))}
+                        </select>
+                        
+                        <button
+                          className="text-[9px] text-red-400 hover:text-red-300 font-semibold px-1 disabled:opacity-40"
+                          type="button"
+                          onClick={() => void removeWorkspaceMember(member.userId)}
+                          disabled={!canManageWorkspaceMember(currentWorkspaceRole, member.role)}
+                        >
+                          Remove
+                        </button>
+                      </div>
                     </article>
                   ))
                 )}
               </div>
+              
+              {/* SSO Configuration details */}
+              <div className="mt-4 pt-3 border-t border-slate-850">
+                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-2">SSO Config</p>
+                <p className="empty-copy text-[10px] text-slate-400 bg-slate-950/30 p-2 rounded border border-slate-850 font-mono leading-relaxed select-all">
+                  {enterpriseIdentity === null
+                    ? 'Enterprise identity path unavailable.'
+                    : `${enterpriseIdentity.loginUrl} \n Required claims: ${enterpriseIdentity.requiredClaims.join(', ')}`}
+                </p>
+              </div>
+
+              {/* Audit Logs */}
+              <div className="mt-4 pt-3 border-t border-slate-850">
+                <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-2">Audit Logs ({auditEvents.length})</p>
+                <div className="version-list flex flex-col gap-1.5 max-h-36 overflow-y-auto pr-1 scrollbar-thin">
+                  {auditEvents.length === 0 ? (
+                    <p className="empty-copy text-[10px] text-slate-650 italic">No audit events yet.</p>
+                  ) : (
+                    auditEvents.slice(0, 6).map((event) => (
+                      <article className="diagram-row comment-row bg-slate-950/20 p-2 rounded border border-slate-850 flex items-center justify-between text-xs" key={event.id}>
+                        <span>
+                          <strong className="text-[10px] text-slate-300 font-semibold block">{event.action}</strong>
+                          <small className="text-[9px] text-slate-500">{new Date(event.createdAt).toLocaleString()}</small>
+                        </span>
+                        <span className="diagram-meta text-[8px]">{event.targetType}</span>
+                      </article>
+                    ))
+                  )}
+                </div>
+              </div>
+
             </div>
           </section>
+
+        </div>
+      </section>
+
+      {/* 3. INTERACTIVE PREVIEW CANVAS */}
+      <section className="flex-1 flex flex-col bg-slate-900 overflow-hidden relative" aria-label="Diagram canvas">
+        
+        {/* Canvas floating overlay topbar */}
+        <header className="absolute top-4 left-4 right-4 z-10 flex items-center justify-between p-3 bg-slate-950/70 backdrop-blur-md border border-slate-850 rounded-xl shadow-lg">
+          <div>
+            <div className="flex items-center gap-1.5">
+              <span className="text-[9px] font-bold text-teal-400 bg-teal-500/10 px-1.5 py-0.5 rounded border border-teal-500/20 uppercase tracking-wide">
+                {selectedWorkspace?.name || 'Workspace'}
+              </span>
+              <span className="text-slate-600 font-bold text-[9px]">/</span>
+              <span className="text-xs font-semibold text-slate-200">
+                {selectedProject?.name || 'Project'}
+              </span>
+            </div>
+            <h2 className="text-xs font-bold text-slate-100 mt-1 select-all">
+              {selectedDiagram?.title || 'No diagram loaded'}
+            </h2>
+          </div>
+
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-semibold text-slate-400 bg-slate-900/60 border border-slate-850 px-2.5 py-1 rounded-md">
+              {isSyncing ? 'Syncing...' : 'Live Render'}
+            </span>
+
+            <div className="flex items-center gap-1.5 bg-slate-900/80 p-1 rounded-lg border border-slate-800">
+              <button
+                className="px-2.5 py-1.5 rounded text-[10px] font-semibold text-slate-300 hover:text-slate-100 hover:bg-slate-800 transition-colors"
+                type="button"
+                onClick={() => setPresentationMode((value) => !value)}
+              >
+                {presentationMode ? 'Exit presentation' : 'Present'}
+              </button>
+            </div>
+          </div>
+        </header>
+
+        {/* Message Alert Banner */}
+        {syncError && (
+          <div className="absolute top-20 left-4 right-4 z-10 p-3 rounded-lg border border-red-500/25 bg-red-950/20 text-red-400 text-xs shadow-lg flex items-center gap-2" role="alert">
+            <span className="text-sm">⚠️</span> {syncError}
+          </div>
         )}
 
-        <section className="diagram-utilities" aria-label="Enterprise governance">
-          <div className="utility-panel">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Policies</p>
-                <h3>Workspace controls</h3>
-              </div>
-              {governanceMessage === null ? null : <span className="status">{governanceMessage}</span>}
-            </div>
-            {workspacePolicy === null ? (
-              <p className="empty-copy">Policy settings unavailable.</p>
-            ) : (
-              <div className="policy-grid">
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={workspacePolicy.allowShareLinks}
-                    onChange={(event) => void updatePolicy({ allowShareLinks: event.target.checked })}
-                    disabled={!canManageWorkspace}
-                  />
-                  Share links
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={workspacePolicy.allowExports}
-                    onChange={(event) => void updatePolicy({ allowExports: event.target.checked })}
-                    disabled={!canManageWorkspace}
-                  />
-                  Exports
-                </label>
-                <label>
-                  <input
-                    type="checkbox"
-                    checked={workspacePolicy.ssoRequired}
-                    onChange={(event) => void updatePolicy({ ssoRequired: event.target.checked })}
-                    disabled={!canManageWorkspace}
-                  />
-                  SSO required
-                </label>
-                <label>
-                  Retention days
-                  <input
-                    type="number"
-                    min="30"
-                    max="3650"
-                    value={workspacePolicy.retentionDays}
-                    onChange={(event) => void updatePolicy({ retentionDays: Number(event.target.value) })}
-                    disabled={!canManageWorkspace}
-                  />
-                </label>
-                <button className="secondary-action" type="button" onClick={() => void enforceRetention()} disabled={!canManageWorkspace}>
-                  Enforce retention
-                </button>
-              </div>
-            )}
-          </div>
-          <div className="utility-panel">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Members</p>
-                <h3>{workspaceMembers.length} people</h3>
-              </div>
-            </div>
-            <form className="member-form" onSubmit={(event) => void addWorkspaceMember(event)}>
-              <input
-                aria-label="Member email"
-                type="email"
-                placeholder="member@example.com"
-                value={memberEmail}
-                onChange={(event) => setMemberEmail(event.target.value)}
-                disabled={!canManageWorkspace}
-              />
-              <select
-                aria-label="Member role"
-                value={memberRole}
-                onChange={(event) => setMemberRole(event.target.value as WorkspaceRole)}
-                disabled={!canManageWorkspace}
+        {/* Canvas Render stage */}
+        <div className="flex-1 w-full h-full flex items-center justify-center relative p-8 pt-24 preview-grid-bg">
+          {presentationMode && selectedDiagram !== undefined ? (
+            <section className="absolute inset-0 bg-slate-950/98 z-50 flex flex-col p-8 justify-center items-center" aria-label="Presentation mode">
+              <button
+                className="absolute top-4 right-4 px-3 py-1.5 rounded-lg text-xs font-semibold bg-slate-900 hover:bg-slate-800 text-slate-200 border border-slate-800 z-50 transition-colors"
+                type="button"
+                onClick={() => setPresentationMode(false)}
               >
-                {getAssignableWorkspaceRoles(currentWorkspaceRole).map((role) => (
-                  <option key={role} value={role}>
-                    {role}
-                  </option>
-                ))}
-              </select>
-              <button className="secondary-action" type="submit" disabled={!canManageWorkspace}>
-                Add member
+                Exit Presentation
               </button>
-            </form>
-            <div className="version-list">
-              {workspaceMembers.length === 0 ? (
-                <p className="empty-copy">No members loaded.</p>
-              ) : (
-                workspaceMembers.slice(0, 6).map((member) => (
-                  <article className="diagram-row comment-row" key={member.id}>
-                    <span>
-                      <strong>{member.displayName ?? member.email}</strong>
-                      <small>{member.email}</small>
-                    </span>
-                    <select
-                      aria-label={`Role for ${member.email}`}
-                      value={member.role}
-                      onChange={(event) =>
-                        void updateWorkspaceMemberRole(member.userId, event.target.value as WorkspaceRole)
-                      }
-                      disabled={!canManageWorkspaceMember(currentWorkspaceRole, member.role)}
-                    >
-                      {getAssignableWorkspaceRoles(currentWorkspaceRole).map((role) => (
-                        <option key={role} value={role}>
-                          {role}
-                        </option>
-                      ))}
-                    </select>
-                    <button
-                      className="secondary-action"
-                      type="button"
-                      onClick={() => void removeWorkspaceMember(member.userId)}
-                      disabled={!canManageWorkspaceMember(currentWorkspaceRole, member.role)}
-                    >
-                      Remove
-                    </button>
-                  </article>
-                ))
-              )}
-            </div>
-            <p className="empty-copy">
-              {enterpriseIdentity === null
-                ? 'Enterprise identity path unavailable.'
-                : `${enterpriseIdentity.loginUrl} / ${enterpriseIdentity.requiredClaims.join(', ')}`}
-            </p>
-          </div>
-          <div className="utility-panel">
-            <div className="section-heading">
-              <div>
-                <p className="eyebrow">Audit</p>
-                <h3>{auditEvents.length} events</h3>
+              <div className="w-full h-full flex flex-col justify-center items-center min-h-0 relative">
+                <div className="absolute top-0 left-0 text-left">
+                  <p className="text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">{selectedWorkspace?.name ?? 'Workspace'}</p>
+                  <h2 className="text-xs font-bold text-slate-300 leading-none">{selectedDiagram.title}</h2>
+                </div>
+                <div className="flex-1 w-full flex items-center justify-center min-h-0 pt-10">
+                  <MermaidPreview source={liveSourceCode || selectedDiagram.sourceCode} theme={selectedDiagram.themeConfig.theme} />
+                </div>
               </div>
+            </section>
+          ) : selectedDiagram !== undefined ? (
+            <div className="w-full h-full flex items-center justify-center overflow-auto p-4 bg-slate-900/40 border border-slate-800/80 rounded-xl relative shadow-inner">
+              <MermaidPreview source={liveSourceCode || selectedDiagram.sourceCode} theme={selectedDiagram.themeConfig.theme} />
             </div>
-            <div className="version-list">
-              {auditEvents.length === 0 ? (
-                <p className="empty-copy">No audit events yet.</p>
-              ) : (
-                auditEvents.slice(0, 6).map((event) => (
-                  <article className="diagram-row comment-row" key={event.id}>
-                    <span>
-                      <strong>{event.action}</strong>
-                      <small>{new Date(event.createdAt).toLocaleString()}</small>
-                    </span>
-                    <span className="diagram-meta">{event.targetType}</span>
-                  </article>
-                ))
-              )}
+          ) : (
+            <div className="flex flex-col items-center justify-center text-center p-8 max-w-sm">
+              <span className="text-4xl mb-4 opacity-75">🎨</span>
+              <h3 className="text-sm font-bold text-slate-200 mb-1.5">Create or Select a Diagram</h3>
+              <p className="text-xs text-slate-500 leading-relaxed mb-4">
+                To start modeling your system workflow, select a diagram from the Projects list, or load a preset template from the starter dock.
+              </p>
             </div>
-          </div>
-        </section>
-      </div>
+          )}
+        </div>
+
+      </section>
+
     </main>
   );
 }

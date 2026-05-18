@@ -123,6 +123,7 @@ export interface AuthApi {
 }
 
 export interface WorkspaceProjectApi {
+  getCurrentUser(): Promise<AuthUserSummary>;
   listWorkspaces(): Promise<WorkspaceSummary[]>;
   createWorkspace(payload: CreateWorkspacePayload): Promise<WorkspaceSummary>;
   listProjects(workspaceId: string): Promise<ProjectSummary[]>;
@@ -605,7 +606,13 @@ async function readErrorMessage(response: Response): Promise<string> {
 
   try {
     const payload = (await response.json()) as { message?: unknown };
-    return typeof payload.message === 'string' ? payload.message : fallback;
+    if (typeof payload.message === 'string') {
+      return payload.message;
+    }
+    if (Array.isArray(payload.message)) {
+      return payload.message.join(', ');
+    }
+    return fallback;
   } catch {
     return fallback;
   }

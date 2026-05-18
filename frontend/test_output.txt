@@ -1,0 +1,2791 @@
+yarn run v1.22.19
+$ vitest run WorkspaceProjectShell.test.tsx
+[33mThe CJS build of Vite's Node API is deprecated. See https://vite.dev/guide/troubleshooting.html#vite-cjs-node-api-deprecated for more details.[39m
+
+ RUN  v2.1.9 /Users/dungnt/Works/milaan/flo_vis/flovis-source/frontend
+
+ ❯ src/features/workspace/components/WorkspaceProjectShell.test.tsx (16 tests | 5 failed) 5845ms
+   × WorkspaceProjectShell > creates a local workspace and project shell entry 507ms
+     → Unable to find a label with the text of: diagram editor
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+   × WorkspaceProjectShell > creates a diagram entry from the selected starter template 53ms
+     → Unable to find a label with the text of: Template
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+   × WorkspaceProjectShell > creates workspace, project, and diagram entries through the API client 389ms
+     → Unable to find a label with the text of: Template
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+   ✓ WorkspaceProjectShell > imports Mermaid source and Markdown blocks through the API client 766ms
+   × WorkspaceProjectShell > toggles presentation mode and updates governance controls 1396ms
+     → Found multiple elements with the text: /Retention removed 1 snapshots/
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<span[39m
+  [33mclass[39m=[32m"status text-[10px] text-teal-400"[39m
+[36m>[39m
+  [0mRetention removed 1 snapshots and 0 audit events[0m
+[36m</span>[39m
+
+Ignored nodes: comments, script, style
+[36m<span[39m
+  [33mclass[39m=[32m"status text-[10px] text-teal-400"[39m
+[36m>[39m
+  [0mRetention removed 1 snapshots and 0 audit events[0m
+[36m</span>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+   ✓ WorkspaceProjectShell > loads and creates comments through the API client 398ms
+   ✓ WorkspaceProjectShell > resolves and reopens comments through the API client 370ms
+   × WorkspaceProjectShell > disables edit and comment controls for viewer workspaces 408ms
+     → Unable to find an accessible element with the role "button" and name `/Restore snapshot/`
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Project diagrams":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Project diagrams"[39m
+    [33mclass[39m=[32m"diagram-list-band flex flex-col gap-3"[39m
+  [36m/>[39m
+
+  Name "diagram editor":
+  [36m<section[39m
+    [33maria-label[39m=[32m"diagram editor"[39m
+  [36m/>[39m
+
+  Name "Enterprise governance":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Enterprise governance"[39m
+    [33mclass[39m=[32m"governance-band flex flex-col gap-5 border-t border-slate-800/80 pt-4"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"empty-copy text-xs text-slate-650 italic py-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"empty-copy text-xs text-slate-650 italic py-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"empty-copy text-[10px] text-slate-400 bg-slate-950/30 p-2 rounded border border-slate-850 font-mono leading-relaxed select-all"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-2"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "1 charts":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+  [36m/>[39m
+
+  Name "Mermaid source":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+  [36m/>[39m
+
+  Name "0 blocks":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+  [36m/>[39m
+
+  Name "0 snapshots":
+  [36m<h3 />[39m
+
+  Name "Portable source":
+  [36m<h3 />[39m
+
+  Name "Read-only links":
+  [36m<h3 />[39m
+
+  Name "0 open notes":
+  [36m<h3 />[39m
+
+  Name "Workspace controls":
+  [36m<h3 />[39m
+
+  Name "1 people":
+  [36m<h3 />[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Starter Template":
+  [36m<select[39m
+    [33mclass[39m=[32m"w-full bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+    [33mid[39m=[32m"diagram-template"[39m
+  [36m/>[39m
+
+  Name "Member role":
+  [36m<select[39m
+    [33maria-label[39m=[32m"Member role"[39m
+    [33mclass[39m=[32m"flex-1 bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "Role for member@example.com":
+  [36m<select[39m
+    [33maria-label[39m=[32m"Role for member@example.com"[39m
+    [33mclass[39m=[32m"bg-slate-900 text-slate-200 border border-slate-800 rounded px-1.5 py-0.5 text-[10px] focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "Blank flowchart":
+  [36m<option[39m
+    [33mvalue[39m=[32m"blank-flowchart"[39m
+  [36m/>[39m
+
+  Name "System design":
+  [36m<option[39m
+    [33mvalue[39m=[32m"system-design"[39m
+  [36m/>[39m
+
+  Name "Sequence flow":
+  [36m<option[39m
+    [33mvalue[39m=[32m"sequence-flow"[39m
+  [36m/>[39m
+
+  Name "State machine":
+  [36m<option[39m
+    [33mvalue[39m=[32m"state-machine"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "New diagram":
+  [36m<button[39m
+    [33mclass[39m=[32m"primary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 transition-all shadow-md shadow-teal-500/10 active:scale-95 duration-100"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "API Diagram Loaded chart flowchart / Synced":
+  [36m<button[39m
+    [33mclass[39m=[32m"diagram-row active bg-teal-500/10 text-teal-400 border border-teal-500/30"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Import .mmd":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Detect blocks":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Mock save":
+  [36m<button[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Export .mmd":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700/60"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "New share link":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent shadow-md shadow-teal-500/10"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Add comment":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent shadow-md shadow-teal-500/10"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"submit"[39m
+  [36m/>[39m
+
+  Name "Enforce retention":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 mt-1.5 transition-colors"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Add member":
+  [36m<button[39m
+    [33mclass[39m=[32m"primary-action px-3 py-1 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent transition-colors disabled:opacity-50"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"submit"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"block truncate max-w-[280px]"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-xs text-slate-200 font-medium leading-relaxed block truncate max-w-[150px]"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-[10px] text-slate-300 font-semibold block"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  textbox:
+
+  Name "Imported .mmd content":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Imported .mmd content"[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mplaceholder[39m=[32m"Paste .mmd source"[39m
+  [36m/>[39m
+
+  Name "Markdown Mermaid import":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Markdown Mermaid import"[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mplaceholder[39m=[32m"Paste Markdown with ```mermaid blocks"[39m
+  [36m/>[39m
+
+  Name "Comment":
+  [36m<textarea[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-sans text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[50px] placeholder-slate-700"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mid[39m=[32m"diagram-comment"[39m
+    [33mplaceholder[39m=[32m"Leave review feedback"[39m
+  [36m/>[39m
+
+  Name "Member email":
+  [36m<input[39m
+    [33maria-label[39m=[32m"Member email"[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 text-xs p-2 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mid[39m=[32m"member-email"[39m
+    [33mplaceholder[39m=[32m"member@example.com"[39m
+    [33mtype[39m=[32m"email"[39m
+    [33mvalue[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Share links":
+  [36m<input[39m
+    [33mchecked[39m=[32m""[39m
+    [33mclass[39m=[32m"rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  Name "Exports":
+  [36m<input[39m
+    [33mchecked[39m=[32m""[39m
+    [33mclass[39m=[32m"rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  Name "SSO required":
+  [36m<input[39m
+    [33mclass[39m=[32m"rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name "Retention days":
+  [36m<input[39m
+    [33mclass[39m=[32m"bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1 text-xs focus:ring-1 focus:ring-teal-500/50 mt-1"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mmax[39m=[32m"3650"[39m
+    [33mmin[39m=[32m"30"[39m
+    [33mtype[39m=[32m"number"[39m
+    [33mvalue[39m=[32m"365"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "":
+  [36m<article[39m
+    [33mclass[39m=[32m"diagram-row comment-row flex justify-between items-center bg-slate-950/50 p-2.5 rounded-lg border border-slate-850"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<article[39m
+    [33mclass[39m=[32m"diagram-row comment-row bg-slate-950/20 p-2 rounded border border-slate-850 flex items-center justify-between text-xs"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-label[39m=[32m"Diagram utilities"[39m
+  [33mclass[39m=[32m"w-[420px] flex-shrink-0 flex flex-col bg-slate-900 border-r border-slate-800 h-full overflow-hidden"[39m
+[36m>[39m
+  [36m<div[39m
+    [33mclass[39m=[32m"flex-1 overflow-y-auto p-4 flex flex-col gap-5 scrollbar-thin scrollbar-thumb-slate-800"[39m
+  [36m>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Project diagrams"[39m
+      [33mclass[39m=[32m"diagram-list-band flex flex-col gap-3"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"section-heading bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-3.5"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+          [36m>[39m
+            [0mProject diagrams[0m
+          [36m</p>[39m
+          [36m<h3[39m
+            [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+          [36m>[39m
+            [0m1[0m
+            [0m charts[0m
+          [36m</h3>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"template-create-controls flex flex-col gap-2 w-full"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"text-[10px] font-bold text-slate-500 uppercase tracking-wider block"[39m
+            [33mfor[39m=[32m"diagram-template"[39m
+          [36m>[39m
+            [0mStarter Template[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"w-full bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+            [33mid[39m=[32m"diagram-template"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"blank-flowchart"[39m
+            [36m>[39m
+              [0mBlank flowchart[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"system-design"[39m
+            [36m>[39m
+              [0mSystem design[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"sequence-flow"[39m
+            [36m>[39m
+              [0mSequence flow[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"state-machine"[39m
+            [36m>[39m
+              [0mState machine[0m
+            [36m</option>[39m
+          [36m</select>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"primary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 transition-all shadow-md shadow-teal-500/10 active:scale-95 duration-100"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mNew diagram[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"diagram-list flex flex-col gap-1.5"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"diagram-row active bg-teal-500/10 text-teal-400 border border-teal-500/30"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [36m<strong[39m
+              [33mclass[39m=[32m"block truncate max-w-[280px]"[39m
+            [36m>[39m
+              [0mAPI Diagram[0m
+            [36m</strong>[39m
+            [36m<small[39m
+              [33mclass[39m=[32m"block truncate max-w-[280px]"[39m
+            [36m>[39m
+              [0mLoaded chart[0m
+            [36m</small>[39m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"diagram-meta"[39m
+          [36m>[39m
+            [0mflowchart[0m
+            [0m / [0m
+            [0mSynced[0m
+          [36m</span>[39m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"import-band flex flex-col gap-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"section-heading"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+            [36m>[39m
+              [0mImport[0m
+            [36m</p>[39m
+            [36m<h3[39m
+              [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+            [36m>[39m
+              [0mMermaid source[0m
+            [36m</h3>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<textarea[39m
+          [33maria-label[39m=[32m"Imported .mmd content"[39m
+          [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mplaceholder[39m=[32m"Paste .mmd source"[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mImport .mmd[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"section-heading"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+            [36m>[39m
+              [0mMarkdown[0m
+            [36m</p>[39m
+            [36m<h3[39m
+              [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+            [36m>[39m
+              [0m0[0m
+              [0m blocks[0m
+            [36m</h3>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<textarea[39m
+          [33maria-label[39m=[32m"Markdown Mermaid import"[39m
+          [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mplaceholder[39m=[32m...
+   ✓ WorkspaceProjectShell > limits admin member management to non-admin, non-owner roles 313ms
+
+⎯⎯⎯⎯⎯⎯⎯ Failed Tests 5 ⎯⎯⎯⎯⎯⎯⎯
+
+ FAIL  src/features/workspace/components/WorkspaceProjectShell.test.tsx > WorkspaceProjectShell > creates a local workspace and project shell entry
+TestingLibraryElementError: Unable to find a label with the text of: diagram editor
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/workspace/components/WorkspaceProjectShell.test.tsx:400:19
+    398| 
+    399|     expect(screen.getByRole('button', { name: /Sprint Maps/ })).toBeIn…
+    400|     expect(screen.getByLabelText('diagram editor')).toHaveTextContent(
+       |                   ^
+    401|       'Release Planning / Sprint Maps'
+    402|     );
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[1/5]⎯
+
+ FAIL  src/features/workspace/components/WorkspaceProjectShell.test.tsx > WorkspaceProjectShell > creates a diagram entry from the selected starter template
+TestingLibraryElementError: Unable to find a label with the text of: Template
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/workspace/components/WorkspaceProjectShell.test.tsx:427:37
+    425|     render(<WorkspaceProjectShell />);
+    426| 
+    427|     await user.selectOptions(screen.getByLabelText('Template'), 'seque…
+       |                                     ^
+    428|     await user.click(screen.getByRole('button', { name: 'New diagram' …
+    429| 
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[2/5]⎯
+
+ FAIL  src/features/workspace/components/WorkspaceProjectShell.test.tsx > WorkspaceProjectShell > creates workspace, project, and diagram entries through the API client
+TestingLibraryElementError: Unable to find a label with the text of: Template
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ getAllByLabelText node_modules/@testing-library/dom/dist/queries/label-text.js:111:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/workspace/components/WorkspaceProjectShell.test.tsx:475:37
+    473|     );
+    474| 
+    475|     await user.selectOptions(screen.getByLabelText('Template'), 'seque…
+       |                                     ^
+    476|     await user.click(screen.getByRole('button', { name: 'New diagram' …
+    477|     await waitFor(() =>
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[3/5]⎯
+
+ FAIL  src/features/workspace/components/WorkspaceProjectShell.test.tsx > WorkspaceProjectShell > toggles presentation mode and updates governance controls
+TestingLibraryElementError: Found multiple elements with the text: /Retention removed 1 snapshots/
+
+Here are the matching elements:
+
+Ignored nodes: comments, script, style
+[36m<span[39m
+  [33mclass[39m=[32m"status text-[10px] text-teal-400"[39m
+[36m>[39m
+  [0mRetention removed 1 snapshots and 0 audit events[0m
+[36m</span>[39m
+
+Ignored nodes: comments, script, style
+[36m<span[39m
+  [33mclass[39m=[32m"status text-[10px] text-teal-400"[39m
+[36m>[39m
+  [0mRetention removed 1 snapshots and 0 audit events[0m
+[36m</span>[39m
+
+(If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+
+Ignored nodes: comments, script, style
+[36m<body>[39m
+  [36m<div[39m
+    [33mid[39m=[32m"ddiagram-_r_0_"[39m
+  [36m>[39m
+    [36m<svg[39m
+      [33mid[39m=[32m"diagram-_r_0_"[39m
+      [33mstyle[39m=[32m"max-width: 512px;"[39m
+      [33mviewBox[39m=[32m"0 0 2412 512"[39m
+      [33mwidth[39m=[32m"100%"[39m
+      [33mxmlns[39m=[32m"http://www.w3.org/2000/svg"[39m
+    [36m>[39m
+      [36m<g>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 10 5 L 0 10 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart"[39m
+          [33mmarkerHeight[39m=[32m"8"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"8"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"4.5"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 5 L 10 10 L 10 0 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"10.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11.5"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<path[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33md[39m=[32m"M 0 0 L 11.5 7 L 0 14 z"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-pointStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11.5"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"1"[39m
+          [33mrefY[39m=[32m"7"[39m
+          [33mviewBox[39m=[32m"0 0 11.5 14"[39m
+        [36m>[39m
+          [36m<polygon[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mpoints[39m=[32m"0,7 11.5,14 11.5,0"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"11"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart"[39m
+          [33mmarkerHeight[39m=[32m"11"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"11"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-1"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 1; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleEnd-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"12.25"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-_r_0__flowchart-v2-circleStart-margin"[39m
+          [33mmarkerHeight[39m=[32m"14"[39m
+          [33mmarkerUnits[39m=[32m"userSpaceOnUse"[39m
+          [33mmarkerWidth[39m=[32m"14"[39m
+          [33morient[39m=[32m"auto"[39m
+          [33mrefX[39m=[32m"-2"[39m
+          [33mrefY[39m=[32m"5"[39m
+          [33mviewBox[39m=[32m"0 0 10 10"[39m
+        [36m>[39m
+          [36m<circle[39m
+            [33mclass[39m=[32m"arrowMarkerPath"[39m
+            [33mcx[39m=[32m"5"[39m
+            [33mcy[39m=[32m"5"[39m
+            [33mr[39m=[32m"5"[39m
+            [33mstyle[39m=[32m"stroke-width: 0; stroke-dasharray: 1,0;"[39m
+          [36m/>[39m
+        [36m</marker>[39m
+        [36m<marker[39m
+          [33mclass[39m=[32m"marker cross flowchart-v2"[39m
+          [33mid[39m=[32m"diagram-...
+ ❯ waitForWrapper node_modules/@testing-library/dom/dist/wait-for.js:163:27
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:86:33
+ ❯ src/features/workspace/components/WorkspaceProjectShell.test.tsx:640:25
+    638|     await user.click(screen.getByRole('button', { name: 'Enforce reten…
+    639|     await waitFor(() => expect(enforceRetention).toHaveBeenCalledWith(…
+    640|     expect(await screen.findByText(/Retention removed 1 snapshots/)).t…
+       |                         ^
+    641|     expect(screen.getByText('diagram.create')).toBeInTheDocument();
+    642|   });
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[4/5]⎯
+
+ FAIL  src/features/workspace/components/WorkspaceProjectShell.test.tsx > WorkspaceProjectShell > disables edit and comment controls for viewer workspaces
+TestingLibraryElementError: Unable to find an accessible element with the role "button" and name `/Restore snapshot/`
+
+Here are the accessible roles:
+
+  region:
+
+  Name "Project diagrams":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Project diagrams"[39m
+    [33mclass[39m=[32m"diagram-list-band flex flex-col gap-3"[39m
+  [36m/>[39m
+
+  Name "diagram editor":
+  [36m<section[39m
+    [33maria-label[39m=[32m"diagram editor"[39m
+  [36m/>[39m
+
+  Name "Enterprise governance":
+  [36m<section[39m
+    [33maria-label[39m=[32m"Enterprise governance"[39m
+    [33mclass[39m=[32m"governance-band flex flex-col gap-5 border-t border-slate-800/80 pt-4"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  paragraph:
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"empty-copy text-xs text-slate-650 italic py-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"empty-copy text-xs text-slate-650 italic py-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"eyebrow"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-2"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"empty-copy text-[10px] text-slate-400 bg-slate-950/30 p-2 rounded border border-slate-850 font-mono leading-relaxed select-all"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<p[39m
+    [33mclass[39m=[32m"text-[9px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-2"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  heading:
+
+  Name "1 charts":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+  [36m/>[39m
+
+  Name "Mermaid source":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+  [36m/>[39m
+
+  Name "0 blocks":
+  [36m<h3[39m
+    [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+  [36m/>[39m
+
+  Name "0 snapshots":
+  [36m<h3 />[39m
+
+  Name "Portable source":
+  [36m<h3 />[39m
+
+  Name "Read-only links":
+  [36m<h3 />[39m
+
+  Name "0 open notes":
+  [36m<h3 />[39m
+
+  Name "Workspace controls":
+  [36m<h3 />[39m
+
+  Name "1 people":
+  [36m<h3 />[39m
+
+  --------------------------------------------------
+  combobox:
+
+  Name "Starter Template":
+  [36m<select[39m
+    [33mclass[39m=[32m"w-full bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+    [33mid[39m=[32m"diagram-template"[39m
+  [36m/>[39m
+
+  Name "Member role":
+  [36m<select[39m
+    [33maria-label[39m=[32m"Member role"[39m
+    [33mclass[39m=[32m"flex-1 bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  Name "Role for member@example.com":
+  [36m<select[39m
+    [33maria-label[39m=[32m"Role for member@example.com"[39m
+    [33mclass[39m=[32m"bg-slate-900 text-slate-200 border border-slate-800 rounded px-1.5 py-0.5 text-[10px] focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+    [33mdisabled[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  option:
+
+  Name "Blank flowchart":
+  [36m<option[39m
+    [33mvalue[39m=[32m"blank-flowchart"[39m
+  [36m/>[39m
+
+  Name "System design":
+  [36m<option[39m
+    [33mvalue[39m=[32m"system-design"[39m
+  [36m/>[39m
+
+  Name "Sequence flow":
+  [36m<option[39m
+    [33mvalue[39m=[32m"sequence-flow"[39m
+  [36m/>[39m
+
+  Name "State machine":
+  [36m<option[39m
+    [33mvalue[39m=[32m"state-machine"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  button:
+
+  Name "New diagram":
+  [36m<button[39m
+    [33mclass[39m=[32m"primary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 transition-all shadow-md shadow-teal-500/10 active:scale-95 duration-100"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "API Diagram Loaded chart flowchart / Synced":
+  [36m<button[39m
+    [33mclass[39m=[32m"diagram-row active bg-teal-500/10 text-teal-400 border border-teal-500/30"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Import .mmd":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Detect blocks":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Mock save":
+  [36m<button[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Export .mmd":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-800 hover:bg-slate-750 text-slate-200 border border-slate-700/60"[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "New share link":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent shadow-md shadow-teal-500/10"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Add comment":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent shadow-md shadow-teal-500/10"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"submit"[39m
+  [36m/>[39m
+
+  Name "Enforce retention":
+  [36m<button[39m
+    [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 mt-1.5 transition-colors"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"button"[39m
+  [36m/>[39m
+
+  Name "Add member":
+  [36m<button[39m
+    [33mclass[39m=[32m"primary-action px-3 py-1 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 text-slate-950 border border-transparent transition-colors disabled:opacity-50"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"submit"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  strong:
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"block truncate max-w-[280px]"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-xs text-slate-200 font-medium leading-relaxed block truncate max-w-[150px]"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<strong[39m
+    [33mclass[39m=[32m"text-[10px] text-slate-300 font-semibold block"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  textbox:
+
+  Name "Imported .mmd content":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Imported .mmd content"[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mplaceholder[39m=[32m"Paste .mmd source"[39m
+  [36m/>[39m
+
+  Name "Markdown Mermaid import":
+  [36m<textarea[39m
+    [33maria-label[39m=[32m"Markdown Mermaid import"[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mplaceholder[39m=[32m"Paste Markdown with ```mermaid blocks"[39m
+  [36m/>[39m
+
+  Name "Comment":
+  [36m<textarea[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-sans text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[50px] placeholder-slate-700"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mid[39m=[32m"diagram-comment"[39m
+    [33mplaceholder[39m=[32m"Leave review feedback"[39m
+  [36m/>[39m
+
+  Name "Member email":
+  [36m<input[39m
+    [33maria-label[39m=[32m"Member email"[39m
+    [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 text-xs p-2 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mid[39m=[32m"member-email"[39m
+    [33mplaceholder[39m=[32m"member@example.com"[39m
+    [33mtype[39m=[32m"email"[39m
+    [33mvalue[39m=[32m""[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  checkbox:
+
+  Name "Share links":
+  [36m<input[39m
+    [33mchecked[39m=[32m""[39m
+    [33mclass[39m=[32m"rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  Name "Exports":
+  [36m<input[39m
+    [33mchecked[39m=[32m""[39m
+    [33mclass[39m=[32m"rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  Name "SSO required":
+  [36m<input[39m
+    [33mclass[39m=[32m"rounded border-slate-800 text-teal-500 focus:ring-0 cursor-pointer bg-slate-950"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mtype[39m=[32m"checkbox"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  spinbutton:
+
+  Name "Retention days":
+  [36m<input[39m
+    [33mclass[39m=[32m"bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1 text-xs focus:ring-1 focus:ring-teal-500/50 mt-1"[39m
+    [33mdisabled[39m=[32m""[39m
+    [33mmax[39m=[32m"3650"[39m
+    [33mmin[39m=[32m"30"[39m
+    [33mtype[39m=[32m"number"[39m
+    [33mvalue[39m=[32m"365"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+  article:
+
+  Name "":
+  [36m<article[39m
+    [33mclass[39m=[32m"diagram-row comment-row flex justify-between items-center bg-slate-950/50 p-2.5 rounded-lg border border-slate-850"[39m
+  [36m/>[39m
+
+  Name "":
+  [36m<article[39m
+    [33mclass[39m=[32m"diagram-row comment-row bg-slate-950/20 p-2 rounded border border-slate-850 flex items-center justify-between text-xs"[39m
+  [36m/>[39m
+
+  --------------------------------------------------
+
+Ignored nodes: comments, script, style
+[36m<section[39m
+  [33maria-label[39m=[32m"Diagram utilities"[39m
+  [33mclass[39m=[32m"w-[420px] flex-shrink-0 flex flex-col bg-slate-900 border-r border-slate-800 h-full overflow-hidden"[39m
+[36m>[39m
+  [36m<div[39m
+    [33mclass[39m=[32m"flex-1 overflow-y-auto p-4 flex flex-col gap-5 scrollbar-thin scrollbar-thumb-slate-800"[39m
+  [36m>[39m
+    [36m<section[39m
+      [33maria-label[39m=[32m"Project diagrams"[39m
+      [33mclass[39m=[32m"diagram-list-band flex flex-col gap-3"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"section-heading bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-3.5"[39m
+      [36m>[39m
+        [36m<div>[39m
+          [36m<p[39m
+            [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+          [36m>[39m
+            [0mProject diagrams[0m
+          [36m</p>[39m
+          [36m<h3[39m
+            [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+          [36m>[39m
+            [0m1[0m
+            [0m charts[0m
+          [36m</h3>[39m
+        [36m</div>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"template-create-controls flex flex-col gap-2 w-full"[39m
+        [36m>[39m
+          [36m<label[39m
+            [33mclass[39m=[32m"text-[10px] font-bold text-slate-500 uppercase tracking-wider block"[39m
+            [33mfor[39m=[32m"diagram-template"[39m
+          [36m>[39m
+            [0mStarter Template[0m
+          [36m</label>[39m
+          [36m<select[39m
+            [33mclass[39m=[32m"w-full bg-slate-900 text-slate-200 border border-slate-800 rounded px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-teal-500/50 cursor-pointer"[39m
+            [33mid[39m=[32m"diagram-template"[39m
+          [36m>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"blank-flowchart"[39m
+            [36m>[39m
+              [0mBlank flowchart[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"system-design"[39m
+            [36m>[39m
+              [0mSystem design[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"sequence-flow"[39m
+            [36m>[39m
+              [0mSequence flow[0m
+            [36m</option>[39m
+            [36m<option[39m
+              [33mvalue[39m=[32m"state-machine"[39m
+            [36m>[39m
+              [0mState machine[0m
+            [36m</option>[39m
+          [36m</select>[39m
+          [36m<button[39m
+            [33mclass[39m=[32m"primary-action w-full py-1.5 rounded text-xs font-semibold bg-teal-500 hover:bg-teal-400 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 transition-all shadow-md shadow-teal-500/10 active:scale-95 duration-100"[39m
+            [33mdisabled[39m=[32m""[39m
+            [33mtype[39m=[32m"button"[39m
+          [36m>[39m
+            [0mNew diagram[0m
+          [36m</button>[39m
+        [36m</div>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"diagram-list flex flex-col gap-1.5"[39m
+      [36m>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"diagram-row active bg-teal-500/10 text-teal-400 border border-teal-500/30"[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [36m<span>[39m
+            [36m<strong[39m
+              [33mclass[39m=[32m"block truncate max-w-[280px]"[39m
+            [36m>[39m
+              [0mAPI Diagram[0m
+            [36m</strong>[39m
+            [36m<small[39m
+              [33mclass[39m=[32m"block truncate max-w-[280px]"[39m
+            [36m>[39m
+              [0mLoaded chart[0m
+            [36m</small>[39m
+          [36m</span>[39m
+          [36m<span[39m
+            [33mclass[39m=[32m"diagram-meta"[39m
+          [36m>[39m
+            [0mflowchart[0m
+            [0m / [0m
+            [0mSynced[0m
+          [36m</span>[39m
+        [36m</button>[39m
+      [36m</div>[39m
+    [36m</section>[39m
+    [36m<section[39m
+      [33mclass[39m=[32m"import-band flex flex-col gap-4"[39m
+    [36m>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"section-heading"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+            [36m>[39m
+              [0mImport[0m
+            [36m</p>[39m
+            [36m<h3[39m
+              [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+            [36m>[39m
+              [0mMermaid source[0m
+            [36m</h3>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<textarea[39m
+          [33maria-label[39m=[32m"Imported .mmd content"[39m
+          [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mplaceholder[39m=[32m"Paste .mmd source"[39m
+        [36m/>[39m
+        [36m<button[39m
+          [33mclass[39m=[32m"secondary-action w-full py-1.5 rounded text-xs font-semibold bg-slate-850 hover:bg-slate-800 text-slate-200 border border-slate-700/60 transition-colors"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mtype[39m=[32m"button"[39m
+        [36m>[39m
+          [0mImport .mmd[0m
+        [36m</button>[39m
+      [36m</div>[39m
+      [36m<div[39m
+        [33mclass[39m=[32m"utility-panel bg-slate-950/40 p-4 rounded-xl border border-slate-800/80 shadow-md flex flex-col gap-2.5"[39m
+      [36m>[39m
+        [36m<div[39m
+          [33mclass[39m=[32m"section-heading"[39m
+        [36m>[39m
+          [36m<div>[39m
+            [36m<p[39m
+              [33mclass[39m=[32m"eyebrow text-slate-500"[39m
+            [36m>[39m
+              [0mMarkdown[0m
+            [36m</p>[39m
+            [36m<h3[39m
+              [33mclass[39m=[32m"text-xs font-bold text-slate-300 uppercase tracking-wider"[39m
+            [36m>[39m
+              [0m0[0m
+              [0m blocks[0m
+            [36m</h3>[39m
+          [36m</div>[39m
+        [36m</div>[39m
+        [36m<textarea[39m
+          [33maria-label[39m=[32m"Markdown Mermaid import"[39m
+          [33mclass[39m=[32m"w-full bg-slate-950 text-slate-100 font-mono text-xs p-2.5 rounded border border-slate-800/80 focus:outline-none focus:ring-1 focus:ring-teal-500/50 resize-y min-h-[60px] placeholder-slate-700"[39m
+          [33mdisabled[39m=[32m""[39m
+          [33mplaceholder[39m=[32m...
+ ❯ Object.getElementError node_modules/@testing-library/dom/dist/config.js:37:19
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:76:38
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:52:17
+ ❯ node_modules/@testing-library/dom/dist/query-helpers.js:95:19
+ ❯ src/features/workspace/components/WorkspaceProjectShell.test.tsx:706:73
+    704|     expect(screen.getByRole('button', { name: 'Detect blocks' })).toBe…
+    705|     expect(
+    706|       within(screen.getByRole('region', { name: 'Diagram utilities' })…
+       |                                                                         ^
+    707|         name: /Restore snapshot/
+    708|       })
+
+⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯⎯[5/5]⎯
+
+ Test Files  1 failed (1)
+      Tests  5 failed | 11 passed (16)
+   Start at  20:47:13
+   Duration  6.66s (transform 105ms, setup 81ms, collect 315ms, tests 5.84s, environment 193ms, prepare 51ms)
+
+error Command failed with exit code 1.
+info Visit https://yarnpkg.com/en/docs/cli/run for documentation about this command.

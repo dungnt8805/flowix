@@ -35,6 +35,18 @@ vi.mock('@/features/diagram/components/DiagramEditorScreen', () => ({
   )
 }));
 
+vi.mock('@/lib/api/floVisApiClient', async (importOriginal) => {
+  const original = await importOriginal<typeof import('@/lib/api/floVisApiClient')>();
+  return {
+    ...original,
+    createBrowserAuthTokenStore: () => ({
+      load: () => ({ accessToken: 'mock-token' }),
+      save: () => {},
+      clear: () => {}
+    })
+  };
+});
+
 describe('WorkspaceProjectShell', () => {
   function buildApiClient(): {
     apiClient: WorkspaceProjectApi;
@@ -240,7 +252,14 @@ describe('WorkspaceProjectShell', () => {
       deletedVersions: 1,
       deletedAuditEvents: 0
     });
+    const getCurrentUser = vi.fn().mockResolvedValue({
+      id: 'user-api',
+      email: 'user@example.com',
+      displayName: 'API User',
+      emailVerifiedAt: '2026-01-01T00:00:00.000Z'
+    });
     const apiClient: WorkspaceProjectApi = {
+      getCurrentUser,
       listWorkspaces,
       createWorkspace,
       listProjects,
@@ -590,7 +609,15 @@ describe('WorkspaceProjectShell', () => {
   });
 
   it('toggles presentation mode and updates governance controls', async () => {
-    const { apiClient, enforceRetention, updateWorkspacePolicy } = buildApiClient();
+    const { apiClient, enforceRetention, updateWorkspacePolicy, listWorkspaces } = buildApiClient();
+    listWorkspaces.mockResolvedValueOnce([
+      {
+        id: 'workspace-api',
+        name: 'API Workspace',
+        slug: 'api-workspace',
+        currentUserRole: 'admin'
+      }
+    ]);
     const user = userEvent.setup();
 
     render(<WorkspaceProjectShell apiClient={apiClient} />);
@@ -676,7 +703,7 @@ describe('WorkspaceProjectShell', () => {
     expect(screen.getByLabelText('Markdown Mermaid import')).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Detect blocks' })).toBeDisabled();
     expect(
-      within(screen.getByRole('region', { name: 'Diagram utilities' })).getByRole('button', {
+      await within(screen.getByRole('region', { name: 'Diagram utilities' })).findByRole('button', {
         name: /Restore snapshot/
       })
     ).toBeDisabled();
