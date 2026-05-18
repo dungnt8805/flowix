@@ -8,7 +8,8 @@ import { UserAuthMethodEntity } from './infrastructure/persistence/user-auth-met
 import { UserCredentialEntity } from './infrastructure/persistence/user-credential.entity';
 import { UserSecurityTokenEntity } from './infrastructure/persistence/user-security-token.entity';
 import { UserSessionEntity } from './infrastructure/persistence/user-session.entity';
-import { AuthController } from './presentation/auth.controller';
+import { PublicAuthController } from './presentation/public-auth.controller';
+import { ProtectedAuthController } from './presentation/protected-auth.controller';
 import { UserEntity } from '../users/infrastructure/persistence/user.entity';
 
 @Module({
@@ -21,7 +22,7 @@ import { UserEntity } from '../users/infrastructure/persistence/user.entity';
       UserSecurityTokenEntity
     ])
   ],
-  controllers: [AuthController],
+  controllers: [PublicAuthController, ProtectedAuthController],
   providers: [AuthCryptoService, AuthTokenService, AuthService, CurrentUserSyncService],
   exports: [TypeOrmModule, AuthTokenService, CurrentUserSyncService]
 })
