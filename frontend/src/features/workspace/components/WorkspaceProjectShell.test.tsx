@@ -669,5 +669,56 @@ describe('WorkspaceProjectShell', () => {
     expect(screen.getByRole('button', { name: 'New diagram' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'New share link' })).toBeDisabled();
     expect(screen.getByRole('button', { name: 'Add comment' })).toBeDisabled();
+    expect(screen.getByLabelText('Project')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Add' })).toBeDisabled();
+    expect(screen.getByLabelText('Imported .mmd content')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Import .mmd' })).toBeDisabled();
+    expect(screen.getByLabelText('Markdown Mermaid import')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Detect blocks' })).toBeDisabled();
+    expect(
+      within(screen.getByRole('region', { name: 'Diagram utilities' })).getByRole('button', {
+        name: /Restore snapshot/
+      })
+    ).toBeDisabled();
+    expect(screen.getByLabelText('Share links')).toBeDisabled();
+    expect(screen.getByLabelText('Exports')).toBeDisabled();
+    expect(screen.getByLabelText('SSO required')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Enforce retention' })).toBeDisabled();
+    expect(screen.getByLabelText('Member email')).toBeDisabled();
+    expect(screen.getByLabelText('Member role')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Add member' })).toBeDisabled();
+    expect(screen.getByLabelText('Role for member@example.com')).toBeDisabled();
+    expect(screen.getByRole('button', { name: 'Remove' })).toBeDisabled();
+  });
+
+  it('limits admin member management to non-admin, non-owner roles', async () => {
+    const { apiClient, listWorkspaces } = buildApiClient();
+    listWorkspaces.mockResolvedValueOnce([
+      {
+        id: 'workspace-api',
+        name: 'API Workspace',
+        slug: 'api-workspace',
+        currentUserRole: 'admin'
+      }
+    ]);
+    const user = userEvent.setup();
+
+    render(<WorkspaceProjectShell apiClient={apiClient} />);
+    await screen.findByRole('button', { name: /API Diagram/ });
+
+    const addRoleSelect = screen.getByLabelText('Member role');
+    expect(within(addRoleSelect).queryByRole('option', { name: 'owner' })).not.toBeInTheDocument();
+    expect(within(addRoleSelect).queryByRole('option', { name: 'admin' })).not.toBeInTheDocument();
+    expect(within(addRoleSelect).getByRole('option', { name: 'editor' })).toBeInTheDocument();
+
+    await user.selectOptions(screen.getByLabelText('Role for member@example.com'), 'commenter');
+    const updateRole = apiClient.updateWorkspaceMemberRole as ReturnType<typeof vi.fn>;
+    await waitFor(() =>
+      expect(updateRole).toHaveBeenCalledWith({
+        workspaceId: 'workspace-api',
+        userId: 'user-1',
+        role: 'commenter'
+      })
+    );
   });
 });

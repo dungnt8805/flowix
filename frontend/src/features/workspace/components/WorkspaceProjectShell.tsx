@@ -147,9 +147,12 @@ export function WorkspaceProjectShell({
   const selectedWorkspace = workspaces.find((workspace) => workspace.id === selectedWorkspaceId);
   const selectedProject = projects.find((project) => project.id === selectedProjectId);
   const selectedDiagram = diagrams.find((diagram) => diagram.id === selectedDiagramId);
+  const currentWorkspaceRole = selectedWorkspace?.currentUserRole;
+  const canCreateProjects = currentWorkspaceRole === undefined ? false : canCreateProject(currentWorkspaceRole);
   const canEditDiagram = selectedWorkspace === undefined ? false : canEdit(selectedWorkspace.currentUserRole);
   const canCommentDiagram =
     selectedWorkspace === undefined ? false : canComment(selectedWorkspace.currentUserRole);
+  const canManageWorkspace = currentWorkspaceRole === undefined ? false : canAdministerWorkspace(currentWorkspaceRole);
 
   function handleLogout(): void {
     createBrowserAuthTokenStore()?.clear();
@@ -408,7 +411,7 @@ export function WorkspaceProjectShell({
     event.preventDefault();
     const name = projectName.trim();
 
-    if (name.length === 0 || selectedWorkspaceId.length === 0) {
+    if (name.length === 0 || selectedWorkspaceId.length === 0 || !canCreateProjects) {
       return;
     }
 
@@ -472,7 +475,7 @@ export function WorkspaceProjectShell({
   }
 
   async function importMermaidSource(): Promise<void> {
-    if (selectedWorkspaceId.length === 0 || selectedProjectId.length === 0) {
+    if (selectedWorkspaceId.length === 0 || selectedProjectId.length === 0 || !canEditDiagram) {
       return;
     }
 
@@ -535,7 +538,7 @@ export function WorkspaceProjectShell({
   }
 
   async function importMermaidSourceFromBlock(block: MermaidImportBlockSummary): Promise<void> {
-    if (selectedWorkspaceId.length === 0 || selectedProjectId.length === 0) {
+    if (selectedWorkspaceId.length === 0 || selectedProjectId.length === 0 || !canEditDiagram) {
       return;
     }
 
@@ -618,7 +621,7 @@ export function WorkspaceProjectShell({
   }
 
   async function restoreVersion(version: DiagramVersionSummary): Promise<void> {
-    if (selectedDiagram === undefined) {
+    if (selectedDiagram === undefined || !canEditDiagram) {
       return;
     }
 
@@ -700,7 +703,7 @@ export function WorkspaceProjectShell({
   }
 
   async function updatePolicy(patch: Partial<WorkspacePolicySummary>): Promise<void> {
-    if (selectedWorkspaceId.length === 0 || workspacePolicy === null) {
+    if (selectedWorkspaceId.length === 0 || workspacePolicy === null || !canManageWorkspace) {
       return;
     }
 
@@ -720,7 +723,7 @@ export function WorkspaceProjectShell({
   }
 
   async function enforceRetention(): Promise<void> {
-    if (selectedWorkspaceId.length === 0) {
+    if (selectedWorkspaceId.length === 0 || !canManageWorkspace) {
       return;
     }
 
@@ -739,7 +742,12 @@ export function WorkspaceProjectShell({
 
   async function addWorkspaceMember(event: FormEvent<HTMLFormElement>): Promise<void> {
     event.preventDefault();
-    if (selectedWorkspaceId.length === 0 || memberEmail.trim().length === 0) {
+    if (selectedWorkspaceId.length === 0 || memberEmail.trim().length === 0 || !canManageWorkspace) {
+      return;
+    }
+
+    if (!canAssignWorkspaceRole(currentWorkspaceRole, memberRole)) {
+      setGovernanceMessage('Current role cannot assign that workspace role.');
       return;
     }
 
@@ -770,7 +778,18 @@ export function WorkspaceProjectShell({
   }
 
   async function updateWorkspaceMemberRole(userId: string, role: WorkspaceRole): Promise<void> {
-    if (selectedWorkspaceId.length === 0) {
+    const targetMember = workspaceMembers.find((item) => item.userId === userId);
+    if (selectedWorkspaceId.length === 0 || targetMember === undefined || !canManageWorkspace) {
+      return;
+    }
+
+    if (!canManageWorkspaceMember(currentWorkspaceRole, targetMember.role)) {
+      setGovernanceMessage('Current role cannot manage that workspace member.');
+      return;
+    }
+
+    if (!canAssignWorkspaceRole(currentWorkspaceRole, role)) {
+      setGovernanceMessage('Current role cannot assign that workspace role.');
       return;
     }
 
@@ -791,7 +810,13 @@ export function WorkspaceProjectShell({
   }
 
   async function removeWorkspaceMember(userId: string): Promise<void> {
-    if (selectedWorkspaceId.length === 0) {
+    const targetMember = workspaceMembers.find((item) => item.userId === userId);
+    if (selectedWorkspaceId.length === 0 || targetMember === undefined || !canManageWorkspace) {
+      return;
+    }
+
+    if (!canManageWorkspaceMember(currentWorkspaceRole, targetMember.role)) {
+      setGovernanceMessage('Current role cannot manage that workspace member.');
       return;
     }
 
@@ -954,8 +979,9 @@ export function WorkspaceProjectShell({
               value={projectName}
               onChange={(event) => setProjectName(event.target.value)}
               placeholder="New project"
+              disabled={!canCreateProjects}
             />
-            <button type="submit">Add</button>
+            <button type="submit" disabled={!canCreateProjects}>Add</button>
           </div>
         </form>
 
@@ -1119,8 +1145,9 @@ export function WorkspaceProjectShell({
               value={importSource}
               onChange={(event) => setImportSource(event.target.value)}
               placeholder="Paste .mmd source"
+              disabled={!canEditDiagram}
             />
-            <button className="secondary-action" type="button" onClick={() => void importMermaidSource()}>
+            <button className="secondary-action" type="button" onClick={() => void importMermaidSource()} disabled={!canEditDiagram}>
               Import .mmd
             </button>
           </div>
@@ -1136,13 +1163,14 @@ export function WorkspaceProjectShell({
               value={markdownSource}
               onChange={(event) => setMarkdownSource(event.target.value)}
               placeholder="Paste Markdown with ```mermaid blocks"
+              disabled={!canEditDiagram}
             />
-            <button className="secondary-action" type="button" onClick={() => void parseMarkdownSource()}>
+            <button className="secondary-action" type="button" onClick={() => void parseMarkdownSource()} disabled={!canEditDiagram}>
               Detect blocks
             </button>
             <div className="version-list">
               {markdownBlocks.map((block) => (
-                <button className="diagram-row" key={block.index} type="button" onClick={() => void importMarkdownBlock(block)}>
+                <button className="diagram-row" key={block.index} type="button" onClick={() => void importMarkdownBlock(block)} disabled={!canEditDiagram}>
                   <span>
                     <strong>{block.title}</strong>
                     <small>{block.sourceCode.split('\n')[0]}</small>
@@ -1175,6 +1203,7 @@ export function WorkspaceProjectShell({
                       key={version.id}
                       type="button"
                       onClick={() => void restoreVersion(version)}
+                      disabled={!canEditDiagram}
                     >
                       <span>
                         <strong>{version.title}</strong>
@@ -1301,6 +1330,7 @@ export function WorkspaceProjectShell({
                     type="checkbox"
                     checked={workspacePolicy.allowShareLinks}
                     onChange={(event) => void updatePolicy({ allowShareLinks: event.target.checked })}
+                    disabled={!canManageWorkspace}
                   />
                   Share links
                 </label>
@@ -1309,6 +1339,7 @@ export function WorkspaceProjectShell({
                     type="checkbox"
                     checked={workspacePolicy.allowExports}
                     onChange={(event) => void updatePolicy({ allowExports: event.target.checked })}
+                    disabled={!canManageWorkspace}
                   />
                   Exports
                 </label>
@@ -1317,6 +1348,7 @@ export function WorkspaceProjectShell({
                     type="checkbox"
                     checked={workspacePolicy.ssoRequired}
                     onChange={(event) => void updatePolicy({ ssoRequired: event.target.checked })}
+                    disabled={!canManageWorkspace}
                   />
                   SSO required
                 </label>
@@ -1328,9 +1360,10 @@ export function WorkspaceProjectShell({
                     max="3650"
                     value={workspacePolicy.retentionDays}
                     onChange={(event) => void updatePolicy({ retentionDays: Number(event.target.value) })}
+                    disabled={!canManageWorkspace}
                   />
                 </label>
-                <button className="secondary-action" type="button" onClick={() => void enforceRetention()}>
+                <button className="secondary-action" type="button" onClick={() => void enforceRetention()} disabled={!canManageWorkspace}>
                   Enforce retention
                 </button>
               </div>
@@ -1350,19 +1383,21 @@ export function WorkspaceProjectShell({
                 placeholder="member@example.com"
                 value={memberEmail}
                 onChange={(event) => setMemberEmail(event.target.value)}
+                disabled={!canManageWorkspace}
               />
               <select
                 aria-label="Member role"
                 value={memberRole}
                 onChange={(event) => setMemberRole(event.target.value as WorkspaceRole)}
+                disabled={!canManageWorkspace}
               >
-                {workspaceRoleOptions.map((role) => (
+                {getAssignableWorkspaceRoles(currentWorkspaceRole).map((role) => (
                   <option key={role} value={role}>
                     {role}
                   </option>
                 ))}
               </select>
-              <button className="secondary-action" type="submit">
+              <button className="secondary-action" type="submit" disabled={!canManageWorkspace}>
                 Add member
               </button>
             </form>
@@ -1382,8 +1417,9 @@ export function WorkspaceProjectShell({
                       onChange={(event) =>
                         void updateWorkspaceMemberRole(member.userId, event.target.value as WorkspaceRole)
                       }
+                      disabled={!canManageWorkspaceMember(currentWorkspaceRole, member.role)}
                     >
-                      {workspaceRoleOptions.map((role) => (
+                      {getAssignableWorkspaceRoles(currentWorkspaceRole).map((role) => (
                         <option key={role} value={role}>
                           {role}
                         </option>
@@ -1393,6 +1429,7 @@ export function WorkspaceProjectShell({
                       className="secondary-action"
                       type="button"
                       onClick={() => void removeWorkspaceMember(member.userId)}
+                      disabled={!canManageWorkspaceMember(currentWorkspaceRole, member.role)}
                     >
                       Remove
                     </button>
@@ -1441,6 +1478,45 @@ function canEdit(role: WorkspaceSummary['currentUserRole']): boolean {
 
 function canComment(role: WorkspaceSummary['currentUserRole']): boolean {
   return canEdit(role) || role === 'commenter';
+}
+
+function canCreateProject(role: WorkspaceSummary['currentUserRole']): boolean {
+  return role === 'owner' || role === 'admin';
+}
+
+function canAdministerWorkspace(role: WorkspaceSummary['currentUserRole']): boolean {
+  return role === 'owner' || role === 'admin';
+}
+
+function canAssignWorkspaceRole(actorRole: WorkspaceRole | undefined, nextRole: WorkspaceRole): boolean {
+  if (actorRole === 'owner') {
+    return true;
+  }
+
+  if (actorRole === 'admin') {
+    return nextRole === 'viewer' || nextRole === 'commenter' || nextRole === 'editor';
+  }
+
+  return false;
+}
+
+function canManageWorkspaceMember(
+  actorRole: WorkspaceRole | undefined,
+  targetRole: WorkspaceRole
+): boolean {
+  if (actorRole === 'owner') {
+    return true;
+  }
+
+  if (actorRole === 'admin') {
+    return targetRole !== 'owner';
+  }
+
+  return false;
+}
+
+function getAssignableWorkspaceRoles(actorRole: WorkspaceRole | undefined): WorkspaceRole[] {
+  return workspaceRoleOptions.filter((role) => canAssignWorkspaceRole(actorRole, role));
 }
 
 const workspaceRoleOptions: WorkspaceRole[] = ['viewer', 'commenter', 'editor', 'admin', 'owner'];
