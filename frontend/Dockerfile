@@ -2,19 +2,15 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy root configs
-COPY package.json package-lock.json ./
-COPY backend/package.json ./backend/
-COPY frontend/package.json ./frontend/
-
 # Install dependencies
-RUN npm ci
+COPY package.json ./
+RUN npm install
 
-# Copy frontend source
-COPY frontend ./frontend
+# Copy source files
+COPY . .
 
-# Build frontend
-RUN npm run build --workspace frontend
+# Build Next.js in standalone mode
+RUN npm run build
 
 FROM node:22-alpine AS runner
 
@@ -23,13 +19,17 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV PORT=3000
 
-# Copy standalone Next.js build
-COPY --from=builder /app/frontend/.next/standalone ./
-COPY --from=builder /app/frontend/.next/static ./frontend/.next/static
-# If you have public assets, uncomment the following line
-# COPY --from=builder /app/frontend/public ./frontend/public
+# Create nextjs user/group
+RUN addgroup --system --gid 1001 nodejs
+RUN adduser --system --uid 1001 nextjs
+
+# Copy built standalone folder and static files
+COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
+COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
+
+USER nextjs
 
 EXPOSE 3000
 
-# Next.js standalone server generated in monorepo structure
-CMD ["node", "frontend/server.js"]
+# Standalone server runs from server.js
+CMD ["node", "server.js"]

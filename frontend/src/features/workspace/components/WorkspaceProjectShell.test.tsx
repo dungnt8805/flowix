@@ -712,7 +712,8 @@ describe('WorkspaceProjectShell', () => {
     expect(within(addRoleSelect).getByRole('option', { name: 'editor' })).toBeInTheDocument();
 
     await user.selectOptions(screen.getByLabelText('Role for member@example.com'), 'commenter');
-    const updateRole = apiClient.updateWorkspaceMemberRole as ReturnType<typeof vi.fn>;
+    // eslint-disable-next-line @typescript-eslint/unbound-method
+    const updateRole = apiClient.updateWorkspaceMemberRole;
     await waitFor(() =>
       expect(updateRole).toHaveBeenCalledWith({
         workspaceId: 'workspace-api',
