@@ -2,9 +2,12 @@ import { ConflictException, ForbiddenException, NotFoundException } from '@nestj
 import { Repository } from 'typeorm';
 import { AuthenticatedUser } from '../../../common/auth/authenticated-user';
 import { UserEntity } from '../../users/infrastructure/persistence/user.entity';
+import { Permission } from '../domain/permission';
+import { Role } from '../domain/role';
 import { CreateWorkspaceMemberRecord } from './ports/workspace-member.repository';
 import { WorkspaceMemberRole } from '../domain/workspace-member-role';
 import { WorkspaceMemberRepository } from './ports/workspace-member.repository';
+import { RoleRepository } from './ports/role.repository';
 import { WorkspaceMembersService } from './workspace-members.service';
 
 describe('WorkspaceMembersService', () => {
@@ -24,6 +27,7 @@ describe('WorkspaceMembersService', () => {
   } = {}): {
     service: WorkspaceMembersService;
     members: jest.Mocked<Required<WorkspaceMemberRepository>>;
+    roles: jest.Mocked<RoleRepository>;
     users: jest.Mocked<Pick<Repository<UserEntity>, 'findOneBy' | 'save' | 'create' | 'findBy'>>;
   } {
     const actorRole = options.actorRole ?? WorkspaceMemberRole.OWNER;
@@ -34,7 +38,8 @@ describe('WorkspaceMembersService', () => {
           id: 'member-new',
           workspaceId: input.workspaceId,
           userId: input.userId,
-          role: input.role,
+          roleId: input.roleId,
+          role: makeRoleById(input.roleId),
           createdAt: new Date('2026-01-01T00:00:00.000Z'),
           updatedAt: new Date('2026-01-01T00:00:00.000Z')
         })
@@ -57,11 +62,16 @@ describe('WorkspaceMembersService', () => {
       }),
       updateRole: jest
         .fn()
-        .mockImplementation((_workspaceId: string, userId: string, role: WorkspaceMemberRole) =>
-          Promise.resolve(makeMember(userId, role))
+        .mockImplementation((_workspaceId: string, userId: string, roleId: string) =>
+          Promise.resolve(makeMember(userId, roleNameFromId(roleId)))
         ),
       removeByWorkspaceIdAndUserId: jest.fn().mockResolvedValue(undefined),
       countByWorkspaceIdAndRole: jest.fn().mockResolvedValue(options.ownerCount ?? 2)
+    };
+    const roles: jest.Mocked<RoleRepository> = {
+      findByNameAndWorkspaceId: jest
+        .fn()
+        .mockImplementation((name: WorkspaceMemberRole) => Promise.resolve(makeRole(name)))
     };
     const users = {
       findOneBy: jest.fn().mockResolvedValue(options.existingUser === undefined ? targetUser : options.existingUser),
@@ -73,9 +83,11 @@ describe('WorkspaceMembersService', () => {
     return {
       service: new WorkspaceMembersService(
         members,
-        users as unknown as Repository<UserEntity>
+        users as unknown as Repository<UserEntity>,
+        roles
       ),
       members,
+      roles,
       users
     };
   }
@@ -103,7 +115,7 @@ describe('WorkspaceMembersService', () => {
     expect(members.addMember).toHaveBeenCalledWith({
       workspaceId,
       userId: targetUser.id,
-      role: WorkspaceMemberRole.COMMENTER
+      roleId: `role-${WorkspaceMemberRole.COMMENTER}`
     });
   });
 
@@ -154,10 +166,46 @@ function makeMember(userId: string, role: WorkspaceMemberRole) {
     id: `member-${userId}`,
     workspaceId: '22222222-2222-4222-8222-222222222222',
     userId,
-    role,
+    roleId: `role-${role}`,
+    role: makeRole(role),
     createdAt: new Date('2026-01-01T00:00:00.000Z'),
     updatedAt: new Date('2026-01-01T00:00:00.000Z')
   };
+}
+
+function makeRole(name: WorkspaceMemberRole): Role {
+  return new Role({
+    id: `role-${name}`,
+    workspaceId: null,
+    name,
+    permissions: permissionsForRole(name),
+    createdAt: new Date('2026-01-01T00:00:00.000Z'),
+    updatedAt: new Date('2026-01-01T00:00:00.000Z')
+  });
+}
+
+function makeRoleById(roleId: string): Role {
+  return makeRole(roleNameFromId(roleId));
+}
+
+function roleNameFromId(roleId: string): WorkspaceMemberRole {
+  return roleId.replace('role-', '') as WorkspaceMemberRole;
+}
+
+function permissionsForRole(role: WorkspaceMemberRole): Permission[] {
+  if (role === WorkspaceMemberRole.OWNER || role === WorkspaceMemberRole.ADMIN) {
+    return [Permission.WORKSPACE_MANAGE, Permission.WORKSPACE_MEMBER_ADD];
+  }
+
+  if (role === WorkspaceMemberRole.EDITOR) {
+    return [Permission.DIAGRAM_CREATE, Permission.DIAGRAM_UPDATE, Permission.DIAGRAM_VIEW];
+  }
+
+  if (role === WorkspaceMemberRole.COMMENTER) {
+    return [Permission.DIAGRAM_COMMENT, Permission.DIAGRAM_VIEW];
+  }
+
+  return [Permission.DIAGRAM_VIEW];
 }
 
 function makeUser(id: string, email: string): UserEntity {

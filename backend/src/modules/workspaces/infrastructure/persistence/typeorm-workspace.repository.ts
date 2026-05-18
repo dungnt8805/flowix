@@ -29,7 +29,8 @@ export class TypeOrmWorkspaceRepository implements WorkspaceRepository {
     const workspaces = await this.repository
       .createQueryBuilder('workspace')
       .innerJoin(WorkspaceMemberEntity, 'member', 'member.workspace_id = workspace.id')
-      .addSelect('member.role', 'member_role')
+      .innerJoin('workspace_roles', 'role', 'role.id = member.role_id')
+      .addSelect('role.name', 'member_role')
       .where('member.user_id = :userId', { userId })
       .orderBy('workspace.created_at', 'DESC')
       .getRawAndEntities<{ member_role: WorkspaceMemberRole }>();
