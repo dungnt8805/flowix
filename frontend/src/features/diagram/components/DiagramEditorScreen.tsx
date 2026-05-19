@@ -51,7 +51,7 @@ export function DiagramEditorScreen({
   useEffect(() => {
     setDraft(initialDiagramDraft);
     setSaveState('clean');
-  }, [draftKey]);
+  }, [draftKey, initialDiagramDraft]);
 
   async function saveDraft(): Promise<void> {
     if (onSave === undefined || saveState === 'saving') {
@@ -96,15 +96,17 @@ export function DiagramEditorScreen({
           : 'Save';
 
   return (
-    <section className="flex flex-col h-full bg-slate-900/40" aria-label="Diagram editor">
-      {/* Editor Panel Header */}
-      <div className="flex items-center justify-between p-4 border-b border-slate-800 bg-slate-900/60 backdrop-blur-md">
+    <section
+      className="flex h-full min-h-[34rem] flex-col overflow-hidden rounded-[10px] border border-[var(--color-border-default)] bg-[var(--color-bg-panel)] shadow-[0_16px_40px_rgba(15,23,42,0.06)]"
+      aria-label="Diagram editor"
+    >
+      <div className="flex items-center justify-between border-b border-[var(--color-border-subtle)] px-5 py-4">
         <div>
-          <p className="text-[10px] font-bold text-slate-500 uppercase tracking-widest leading-none mb-1">{contextLabel}</p>
-          <h2 className="text-sm font-semibold text-slate-200 leading-none">{draft.title}</h2>
+          <p className="text-[11px] font-medium uppercase text-[var(--color-text-tertiary)]">{contextLabel}</p>
+          <h2 className="mt-1 text-base font-semibold text-[var(--color-text-primary)]">{draft.title}</h2>
         </div>
         <div className="flex items-center gap-3">
-          <span className="text-[11px] font-medium text-slate-400">
+          <span className="rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-2.5 py-1 text-[11px] font-medium text-[var(--color-text-secondary)]">
             {saveState === 'dirty'
               ? 'Unsaved changes'
               : saveState === 'error'
@@ -112,7 +114,7 @@ export function DiagramEditorScreen({
                 : statusLabel}
           </span>
           <button
-            className="px-3 py-1.5 rounded-md text-xs font-semibold bg-teal-500 hover:bg-teal-400 disabled:bg-slate-800 text-slate-950 disabled:text-slate-500 transition-all duration-150 shadow-md shadow-teal-500/10 active:scale-[0.98] disabled:scale-100 disabled:shadow-none"
+            className="h-9 rounded-[8px] bg-[var(--color-accent)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:bg-slate-200 disabled:text-slate-500"
             type="button"
             onClick={() => void saveDraft()}
             disabled={
@@ -127,12 +129,11 @@ export function DiagramEditorScreen({
         </div>
       </div>
 
-      {/* Editor Main Text Area */}
-      <div className="flex-1 flex flex-col min-h-0 relative">
+      <div className="grid min-h-0 flex-1 grid-rows-[minmax(0,1fr)_auto]">
         <textarea
           ref={editorRef}
           aria-label="Mermaid source"
-          className="flex-1 w-full bg-slate-950/80 text-slate-100 font-mono text-xs p-4 border-0 focus:ring-1 focus:ring-teal-500/50 focus:outline-none resize-none overflow-y-auto leading-relaxed scrollbar-thin scrollbar-thumb-slate-800"
+          className="min-h-0 w-full resize-none border-0 bg-white px-5 py-4 font-mono text-[13px] leading-6 text-slate-800 outline-none"
           value={draft.sourceCode}
           onChange={(event) => {
             const nextSource = event.target.value;
@@ -140,61 +141,61 @@ export function DiagramEditorScreen({
               ...current,
               sourceCode: nextSource
             }));
-            if (onSourceChange) {
-              onSourceChange(nextSource);
-            }
+            onSourceChange?.(nextSource);
           }}
           onInput={markDirty}
         />
-      </div>
 
-      {/* Editor Support: Outline & Theme */}
-      <div className="grid grid-cols-2 gap-4 border-t border-slate-800/80 p-4 bg-slate-900/60">
-        <div className="outline-panel flex flex-col min-w-0">
-          <p className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2">Outline</p>
-          {outline.length === 0 ? (
-            <p className="text-xs text-slate-500 italic">No nodes detected.</p>
-          ) : (
-            <div className="flex flex-wrap gap-1 max-h-[85px] overflow-y-auto pr-1 scrollbar-thin scrollbar-thumb-slate-800">
-              {outline.map((item) => (
-                <button
-                  aria-label={`Go to source line ${item.line}`}
-                  key={`${item.line}-${item.label}`}
-                  className="text-[10px] bg-slate-800 hover:bg-slate-700 text-slate-300 hover:text-slate-100 px-2 py-0.5 rounded transition-all duration-100 border border-slate-700/50"
-                  type="button"
-                  onClick={() => selectOutlineLine(item.line)}
-                >
-                  <span aria-hidden="true">{item.label}</span>
-                </button>
+        <div className="grid gap-4 border-t border-[var(--color-border-subtle)] bg-[var(--color-bg-panel-alt)] px-5 py-4 md:grid-cols-[minmax(0,1fr)_12rem]">
+          <div>
+            <p className="mb-2 text-[11px] font-medium uppercase text-[var(--color-text-tertiary)]">Outline</p>
+            {outline.length === 0 ? (
+              <p className="text-sm text-[var(--color-text-tertiary)]">No nodes detected.</p>
+            ) : (
+              <div className="flex max-h-24 flex-wrap gap-2 overflow-y-auto pr-1">
+                {outline.map((item) => (
+                  <button
+                    aria-label={`Go to source line ${item.line}`}
+                    key={`${item.line}-${item.label}`}
+                    className="rounded-[6px] border border-[var(--color-border-default)] bg-white px-2.5 py-1 text-xs font-medium text-[var(--color-text-secondary)] transition hover:border-sky-300 hover:text-sky-700"
+                    type="button"
+                    onClick={() => selectOutlineLine(item.line)}
+                  >
+                    <span aria-hidden="true">{item.label}</span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+
+          <div>
+            <label htmlFor="diagram-theme" className="mb-2 block text-[11px] font-medium uppercase text-[var(--color-text-tertiary)]">
+              Theme
+            </label>
+            <select
+              id="diagram-theme"
+              aria-label="Theme"
+              className="h-10 w-full rounded-[8px] border border-[var(--color-border-default)] bg-white px-3 text-sm text-[var(--color-text-primary)] outline-none transition focus:border-[var(--color-accent)]"
+              value={draft.themeConfig.theme}
+              onChange={(event) => {
+                const nextTheme = event.target.value as DiagramThemeName;
+                setDraft((current) => ({
+                  ...current,
+                  themeConfig: { theme: nextTheme }
+                }));
+                markDirty();
+              }}
+            >
+              {themeOptions.map((theme) => (
+                <option key={theme.value} value={theme.value}>
+                  {theme.label}
+                </option>
               ))}
-            </div>
-          )}
-        </div>
-        <div className="theme-panel flex flex-col justify-start">
-          <label htmlFor="diagram-theme" className="text-[10px] font-bold text-slate-400 uppercase tracking-wider mb-2 block">Theme</label>
-          <select
-            id="diagram-theme"
-            className="w-full bg-slate-800 text-slate-200 border border-slate-700/60 rounded px-2.5 py-1.5 text-xs focus:ring-1 focus:ring-teal-500/50 focus:outline-none cursor-pointer hover:bg-slate-750 transition-colors"
-            value={draft.themeConfig.theme}
-            onChange={(event) => {
-              const nextTheme = event.target.value as DiagramThemeName;
-              setDraft((current) => ({
-                ...current,
-                themeConfig: { theme: nextTheme }
-              }));
-              markDirty();
-            }}
-          >
-            {themeOptions.map((theme) => (
-              <option key={theme.value} value={theme.value}>
-                {theme.label}
-              </option>
-            ))}
-          </select>
+            </select>
+          </div>
         </div>
       </div>
 
-      {/* Hidden DOM preview supporting unit and integration tests */}
       <div className="hidden" aria-hidden="true">
         <MermaidPreview source={draft.sourceCode} theme={draft.themeConfig.theme} />
       </div>

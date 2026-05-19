@@ -83,205 +83,216 @@ export function AuthScreen({ mode, apiClient }: AuthScreenProps): React.ReactEle
   }
 
   return (
-    <main className="min-h-screen bg-slate-950 flex items-center justify-center p-4 relative overflow-hidden font-sans">
-      {/* Dynamic glow auras */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-indigo-500/10 rounded-full blur-3xl pointer-events-none" />
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-emerald-500/10 rounded-full blur-3xl pointer-events-none" />
+    <main className="min-h-screen bg-[var(--color-bg-app)] px-6 py-8 text-[var(--color-text-primary)]">
+      <div className="mx-auto flex min-h-[calc(100vh-4rem)] w-full max-w-6xl flex-col gap-6 lg:flex-row">
+        <section className="flex min-w-0 flex-1 flex-col justify-between rounded-[10px] border border-[var(--color-border-default)] bg-[var(--color-bg-panel)] p-8 shadow-[0_24px_80px_rgba(15,23,42,0.08)] lg:p-12">
+          <div className="space-y-10">
+            <div className="flex items-center gap-4">
+              <div className="flex h-11 w-11 items-center justify-center rounded-[10px] bg-[var(--color-accent-soft)] text-xl font-semibold text-[var(--color-accent)]">
+                F
+              </div>
+              <div>
+                <h1 className="text-[32px] font-semibold leading-none">Flo Vis</h1>
+                <p className="mt-2 text-sm text-[var(--color-text-secondary)]">Diagram. Collaborate. Ship faster.</p>
+              </div>
+            </div>
 
-      <section
-        className="bg-slate-900/60 backdrop-blur-xl border border-slate-800/80 shadow-2xl rounded-2xl p-8 max-w-md w-full relative z-10"
-        aria-labelledby="auth-title"
-      >
-        <div className="flex items-center gap-4 mb-8">
-          <span className="bg-gradient-to-tr from-indigo-500 to-purple-600 text-white font-extrabold text-xl w-11 h-11 rounded-xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-            FV
-          </span>
-          <div>
-            <h1 id="auth-title" className="text-2xl font-bold text-white tracking-tight">
-              {titleForMode(mode)}
-            </h1>
-            <p className="text-xs text-slate-400 font-medium">Flo Vis workspace authentication</p>
+            <div className="max-w-md space-y-4">
+              <p className="text-2xl font-semibold leading-8 text-[var(--color-text-primary)]">
+                {heroTitleForMode(mode)}
+              </p>
+              <p className="text-sm leading-6 text-[var(--color-text-secondary)]">
+                {heroCopyForMode(mode)}
+              </p>
+            </div>
+
+            <div className="grid gap-3 text-sm text-[var(--color-text-secondary)]">
+              <FeaturePoint label="Real-time diagram editing" />
+              <FeaturePoint label="Version history and restore" />
+              <FeaturePoint label="Share and collaborate" />
+              <FeaturePoint label="Export to multiple formats" />
+            </div>
           </div>
-        </div>
 
-        {message !== null && (
-          <div className="bg-emerald-500/10 border border-emerald-500/20 text-emerald-300 px-4 py-3 rounded-lg text-sm mb-6 flex items-center gap-2">
-            <svg className="w-5 h-5 shrink-0 text-emerald-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
-            </svg>
-            <span>{message}</span>
-          </div>
-        )}
+          <div className="mt-10 text-xs text-[var(--color-text-tertiary)]">2026 Flo Vis. All rights reserved.</div>
+        </section>
 
-        {error !== null && (
-          <div className="bg-red-500/10 border border-red-500/20 text-red-300 px-4 py-3 rounded-lg text-sm mb-6 flex items-start gap-2">
-            <svg className="w-5 h-5 shrink-0 text-red-400 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
-            </svg>
-            <span>{error}</span>
-          </div>
-        )}
-
-        <form className="space-y-5" onSubmit={(event) => void handleSubmit(onSubmit)(event)}>
-          {mode !== 'reset' && (
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                Email
-              </label>
-              <input
-                autoComplete="email"
-                type="email"
-                placeholder="you@example.com"
-                className={`w-full bg-slate-950/60 border rounded-lg px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 transition duration-200 ${
-                  errors.email
-                    ? 'border-red-500/80 focus:border-red-500 focus:ring-red-500'
-                    : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-                {...register('email', {
-                  required: 'Email address is required',
-                  pattern: {
-                    value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-                    message: 'Please enter a valid email address'
-                  }
-                })}
-              />
-              {errors.email && (
-                <span className="text-red-400 text-xs mt-1.5 font-medium block">
-                  {errors.email.message}
-                </span>
-              )}
-            </div>
-          )}
-
-          {mode === 'register' && (
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                Display name
-              </label>
-              <input
-                autoComplete="name"
-                type="text"
-                placeholder="John Doe"
-                className={`w-full bg-slate-950/60 border rounded-lg px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 transition duration-200 ${
-                  errors.displayName
-                    ? 'border-red-500/80 focus:border-red-500 focus:ring-red-500'
-                    : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-                {...register('displayName', {
-                  required: 'Display name is required'
-                })}
-              />
-              {errors.displayName && (
-                <span className="text-red-400 text-xs mt-1.5 font-medium block">
-                  {errors.displayName.message}
-                </span>
-              )}
-            </div>
-          )}
-
-          {mode === 'reset' && (
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                Reset token
-              </label>
-              <input
-                autoComplete="one-time-code"
-                type="text"
-                placeholder="Enter reset token"
-                className={`w-full bg-slate-950/60 border rounded-lg px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 transition duration-200 ${
-                  errors.token
-                    ? 'border-red-500/80 focus:border-red-500 focus:ring-red-500'
-                    : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-                {...register('token', {
-                  required: 'Reset token is required'
-                })}
-              />
-              {errors.token && (
-                <span className="text-red-400 text-xs mt-1.5 font-medium block">
-                  {errors.token.message}
-                </span>
-              )}
-            </div>
-          )}
-
-          {mode !== 'forgot' && (
-            <div>
-              <label className="text-xs font-semibold uppercase tracking-wider text-slate-400 mb-1.5 block">
-                Password
-              </label>
-              <input
-                autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
-                type="password"
-                placeholder="••••••••••••"
-                className={`w-full bg-slate-950/60 border rounded-lg px-3.5 py-2.5 text-white placeholder-slate-500 focus:outline-none focus:ring-1 transition duration-200 ${
-                  errors.password
-                    ? 'border-red-500/80 focus:border-red-500 focus:ring-red-500'
-                    : 'border-slate-800 focus:border-indigo-500 focus:ring-indigo-500'
-                }`}
-                {...register('password', {
-                  required: 'Password is required',
-                  minLength: {
-                    value: 12,
-                    message: 'Password must be at least 12 characters'
-                  }
-                })}
-              />
-              {errors.password && (
-                <span className="text-red-400 text-xs mt-1.5 font-medium block">
-                  {errors.password.message}
-                </span>
-              )}
-            </div>
-          )}
-
-          <button
-            className="w-full bg-gradient-to-r from-indigo-500 to-purple-600 hover:from-indigo-600 hover:to-purple-700 text-white font-semibold py-2.5 rounded-lg shadow-lg shadow-indigo-500/10 hover:shadow-indigo-500/20 active:scale-[0.98] transition-all duration-200 disabled:opacity-50 disabled:pointer-events-none mt-6 flex items-center justify-center gap-2"
-            disabled={isSubmitting}
-            type="submit"
-          >
-            {isSubmitting ? (
-              <>
-                <svg className="animate-spin -ml-1 mr-3 h-5 w-5 text-white" fill="none" viewBox="0 0 24 24">
-                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z" />
-                </svg>
-                Processing...
-              </>
-            ) : (
-              actionForMode(mode)
-            )}
-          </button>
-        </form>
-
-        <nav
-          className="flex flex-wrap gap-x-4 gap-y-2 justify-center text-xs text-slate-400 border-t border-slate-800/80 pt-6 mt-6 font-medium"
-          aria-label="Authentication links"
+        <section
+          className="w-full rounded-[10px] border border-[var(--color-border-default)] bg-[var(--color-bg-panel)] p-6 shadow-[0_24px_80px_rgba(15,23,42,0.08)] sm:p-8 lg:max-w-[30rem]"
+          aria-labelledby="auth-title"
         >
-          {mode !== 'login' && (
-            <a href="/login" className="hover:text-indigo-400 transition-colors">
-              Sign in
-            </a>
-          )}
-          {mode !== 'register' && (
-            <a href="/login?mode=register" className="hover:text-indigo-400 transition-colors">
-              Create account
-            </a>
-          )}
-          {mode !== 'forgot' && (
-            <a href="/login?mode=forgot" className="hover:text-indigo-400 transition-colors">
-              Forgot password
-            </a>
-          )}
-          {mode !== 'reset' && (
-            <a href="/reset-password" className="hover:text-indigo-400 transition-colors">
-              Reset password
-            </a>
-          )}
-        </nav>
-      </section>
+          <div className="mb-8">
+            <div className="mb-3 inline-flex rounded-full border border-[var(--color-border-subtle)] bg-[var(--color-bg-elevated)] px-3 py-1 text-[11px] font-medium text-[var(--color-text-secondary)]">
+              {eyebrowForMode(mode)}
+            </div>
+            <h2 id="auth-title" className="text-[28px] font-semibold leading-8 text-[var(--color-text-primary)]">
+              {titleForMode(mode)}
+            </h2>
+            <p className="mt-2 text-sm text-[var(--color-text-secondary)]">{subtitleForMode(mode)}</p>
+          </div>
+
+          {message !== null ? (
+            <div className="mb-6 rounded-[8px] border border-emerald-200 bg-emerald-50 px-4 py-3 text-sm text-emerald-700">
+              {message}
+            </div>
+          ) : null}
+
+          {error !== null ? (
+            <div className="mb-6 rounded-[8px] border border-rose-200 bg-rose-50 px-4 py-3 text-sm text-rose-700">
+              {error}
+            </div>
+          ) : null}
+
+          <form className="space-y-5" onSubmit={(event) => void handleSubmit(onSubmit)(event)}>
+            {mode !== 'reset' ? (
+              <Field label="Email" error={errors.email?.message}>
+                <input
+                  autoComplete="email"
+                  type="email"
+                  placeholder="you@example.com"
+                  className={inputClassName(errors.email !== undefined)}
+                  {...register('email', {
+                    required: 'Email address is required',
+                    pattern: {
+                      value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                      message: 'Please enter a valid email address'
+                    }
+                  })}
+                />
+              </Field>
+            ) : null}
+
+            {mode === 'register' ? (
+              <Field label="Display name" error={errors.displayName?.message}>
+                <input
+                  autoComplete="name"
+                  type="text"
+                  placeholder="John Doe"
+                  className={inputClassName(errors.displayName !== undefined)}
+                  {...register('displayName', {
+                    required: 'Display name is required'
+                  })}
+                />
+              </Field>
+            ) : null}
+
+            {mode === 'reset' ? (
+              <Field label="Reset token" error={errors.token?.message}>
+                <input
+                  autoComplete="one-time-code"
+                  type="text"
+                  placeholder="Enter reset token"
+                  className={inputClassName(errors.token !== undefined)}
+                  {...register('token', {
+                    required: 'Reset token is required'
+                  })}
+                />
+              </Field>
+            ) : null}
+
+            {mode !== 'forgot' ? (
+              <Field label="Password" error={errors.password?.message}>
+                <input
+                  autoComplete={mode === 'login' ? 'current-password' : 'new-password'}
+                  type="password"
+                  placeholder="••••••••••••"
+                  className={inputClassName(errors.password !== undefined)}
+                  {...register('password', {
+                    required: 'Password is required',
+                    minLength: {
+                      value: 12,
+                      message: 'Password must be at least 12 characters'
+                    }
+                  })}
+                />
+              </Field>
+            ) : null}
+
+            {mode === 'login' ? (
+              <div className="flex items-center justify-between gap-3 text-sm">
+                <label className="flex items-center gap-2 text-[var(--color-text-secondary)]">
+                  <input type="checkbox" className="h-4 w-4 rounded border-slate-300 accent-[var(--color-accent)]" />
+                  <span>Remember me</span>
+                </label>
+                <a href="/login?mode=forgot" className="font-medium text-[var(--color-accent)] hover:text-[var(--color-accent-hover)]">
+                  Forgot password?
+                </a>
+              </div>
+            ) : null}
+
+            <button
+              className="flex h-11 w-full items-center justify-center rounded-[8px] bg-[var(--color-accent)] px-4 text-sm font-semibold text-white transition hover:bg-[var(--color-accent-hover)] disabled:cursor-not-allowed disabled:opacity-60"
+              disabled={isSubmitting}
+              type="submit"
+            >
+              {isSubmitting ? 'Processing...' : actionForMode(mode)}
+            </button>
+          </form>
+
+          <nav className="mt-8 flex flex-wrap gap-x-5 gap-y-2 border-t border-[var(--color-border-subtle)] pt-6 text-sm text-[var(--color-text-secondary)]" aria-label="Authentication links">
+            {mode !== 'login' ? (
+              <a href="/login" className="font-medium hover:text-[var(--color-accent-hover)]">
+                Sign in
+              </a>
+            ) : null}
+            {mode !== 'register' ? (
+              <a href="/login?mode=register" className="font-medium hover:text-[var(--color-accent-hover)]">
+                Create account
+              </a>
+            ) : null}
+            {mode !== 'forgot' ? (
+              <a href="/login?mode=forgot" className="font-medium hover:text-[var(--color-accent-hover)]">
+                Forgot password
+              </a>
+            ) : null}
+            {mode !== 'reset' ? (
+              <a href="/reset-password" className="font-medium hover:text-[var(--color-accent-hover)]">
+                Reset password
+              </a>
+            ) : null}
+          </nav>
+        </section>
+      </div>
     </main>
   );
+}
+
+function Field({
+  label,
+  error,
+  children
+}: {
+  label: string;
+  error?: string;
+  children: React.ReactNode;
+}): React.ReactElement {
+  return (
+    <div>
+      <label className="mb-1.5 block text-[11px] font-medium uppercase text-[var(--color-text-secondary)]">{label}</label>
+      {children}
+      {error ? <p className="mt-1.5 text-xs text-rose-600">{error}</p> : null}
+    </div>
+  );
+}
+
+function FeaturePoint({ label }: { label: string }): React.ReactElement {
+  return (
+    <div className="flex items-center gap-3">
+      <span className="flex h-5 w-5 items-center justify-center rounded-full bg-[var(--color-accent-soft)] text-[11px] font-semibold text-[var(--color-accent)]">
+        +
+      </span>
+      <span>{label}</span>
+    </div>
+  );
+}
+
+function inputClassName(hasError: boolean): string {
+  return [
+    'h-11 w-full rounded-[8px] border bg-[var(--color-bg-panel-alt)] px-3.5 text-sm text-[var(--color-text-primary)] shadow-[inset_0_1px_2px_rgba(15,23,42,0.04)] transition placeholder:text-[var(--color-text-muted)]',
+    hasError
+      ? 'border-rose-300 focus:border-rose-400 focus:outline-none'
+      : 'border-[var(--color-border-default)] focus:border-[var(--color-accent)] focus:outline-none'
+  ].join(' ');
 }
 
 function createBrowserAuthClient(): AuthApi | null {
@@ -291,15 +302,15 @@ function createBrowserAuthClient(): AuthApi | null {
 
 function titleForMode(mode: AuthMode): string {
   if (mode === 'register') {
-    return 'Create Account';
+    return 'Create account';
   }
   if (mode === 'forgot') {
-    return 'Forgot Password';
+    return 'Forgot password';
   }
   if (mode === 'reset') {
-    return 'Reset Password';
+    return 'Reset your password';
   }
-  return 'Sign In';
+  return 'Sign in';
 }
 
 function actionForMode(mode: AuthMode): string {
@@ -313,4 +324,56 @@ function actionForMode(mode: AuthMode): string {
     return 'Reset password';
   }
   return 'Sign in';
+}
+
+function subtitleForMode(mode: AuthMode): string {
+  if (mode === 'register') {
+    return 'Join your workspace and start diagramming.';
+  }
+  if (mode === 'forgot') {
+    return 'Enter your email and we will send a reset path.';
+  }
+  if (mode === 'reset') {
+    return 'Choose a new password for your account.';
+  }
+  return 'Sign in to continue to your workspace.';
+}
+
+function eyebrowForMode(mode: AuthMode): string {
+  if (mode === 'register') {
+    return 'Account setup';
+  }
+  if (mode === 'forgot') {
+    return 'Recovery';
+  }
+  if (mode === 'reset') {
+    return 'Security';
+  }
+  return 'Workspace access';
+}
+
+function heroTitleForMode(mode: AuthMode): string {
+  if (mode === 'register') {
+    return 'Set up your team workspace in the same editor environment.';
+  }
+  if (mode === 'forgot') {
+    return 'Recover access without leaving the product workflow behind.';
+  }
+  if (mode === 'reset') {
+    return 'Reset credentials and get back to the diagram workbench.';
+  }
+  return 'A cleaner editor flow for diagram authors and reviewers.';
+}
+
+function heroCopyForMode(mode: AuthMode): string {
+  if (mode === 'register') {
+    return 'The light theme keeps authentication inside the same product language as editing, sharing, and review.';
+  }
+  if (mode === 'forgot') {
+    return 'No extra marketing shell, no detached auth theme. Just the same product system from entry to editor.';
+  }
+  if (mode === 'reset') {
+    return 'Security and account recovery follow the same spacing, color, and control system as the main workspace.';
+  }
+  return 'Sign in through a compact light-theme surface aligned with the main Flo Vis editor, shared view, and governance screens.';
 }
